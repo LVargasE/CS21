@@ -1,8 +1,8 @@
-# Hello World! program.
+# Bonjour tout le monde ! program.
 def main():
-    #get the user's name
-    name = input('What is your name? ')
-    print('Hello World! I am', name)
+    #get the user's name (but ask in French!)
+    name = input('Comment vous vous appelez ?')
+    print("Bonjour tout le monde ! Je m'appelle", name)
 
 # Call the main function
 main()
