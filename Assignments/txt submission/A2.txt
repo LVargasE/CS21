@@ -36,3 +36,12 @@ def showAll():
 
 # Call function
 showAll()
+
+------------ OUTPUT ------------
+
+Enter the fat grams consumed: 7
+Enter the carbohydrate grams consumed: 7
+Grams of fat:  7.0
+Fat calories:  63.0
+Grams of carbs:  7.0
+Carb calories:  28.0
