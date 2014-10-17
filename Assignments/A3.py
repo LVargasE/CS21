@@ -30,9 +30,9 @@ def main():
     # Calculate total amount
     totalAmount = discountAmount - (packageQuantity * RETAIL_PRICE)
 
-    showPurchase(discountAmount, totalAmount)
+    showPurchase(discountAmount, totalAmount, packageQuantity)
 
-def showPurchase(discountAmount, totalAmount):
+def showPurchase(discountAmount, totalAmount, packageQuantity):
     print("Enter the number of packages purchase: ", packageQuantity)
     print("Discount Amount: ", discountAmount)
     print("Total Amount: $", totalAmount)
