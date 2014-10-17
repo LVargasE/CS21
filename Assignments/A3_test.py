@@ -15,6 +15,9 @@ def main():
     # Get the package quantity
     packageQuantity = getPackageQuantity()
 
+    # Display # of packages
+    print("Enter the number of packages purchase: ", packageQuantity)
+
     # Get the regular price for all packages
     retailPrice = packageQuantity * RETAIL_PRICE
 
@@ -24,29 +27,28 @@ def main():
     # Calculate total amount
     totalAmount = retailPrice - discountAmount
 
-    showPurchase(discountAmount, totalAmount, packageQuantity)
+    showPurchase(discountAmount, totalAmount)
 
 def getPackageQuantity():
     quantity = int(input("Enter the number of packages purchased: "))
     return quantity
 
-def computeDiscount(packageQuantity, retailPrice):
+def computeDiscount(x, y):
 
     # conditional structure to determine discount amount
-    if packageQuantity <= 9:
+    if x <= 9:
       discount = 0
-    elif packageQuantity >= 10 and packageQuanity <= 19:
-      discount = retailPrice * DISCOUNT_20
-    elif packageQuantity >= 20 and packageQuantity <= 49:
-      discount = retailPrice * DISCOUNT_30
-    elif packageQuantity >= 50 and packageQuantity <= 99:
-      discount = retailPrice * DISCOUNT_40
+    elif x >= 10 and x <= 19:
+      discount = y * DISCOUNT_20
+    elif x >= 20 and x <= 49:
+      discount = y * DISCOUNT_30
+    elif x >= 50 and x <= 99:
+      discount = y * DISCOUNT_40
     else:
-      discountAmount = retailPrice * DISCOUNT_50
+      discountAmount = y * DISCOUNT_50
     return discount
 
-def showPurchase(discountAmount, totalAmount, packageQuantity):
-    print("Enter the number of packages purchase: ", packageQuantity)
+def showPurchase(discountAmount, totalAmount):
     print("Discount Amount: $", format(discountAmount, ',.2f'), sep='')
     print("Total Amount: $", format(totalAmount, ',.2f'), sep='')
 
