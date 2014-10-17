@@ -61,3 +61,36 @@ def showPurchase(discountAmount, totalAmount):
 
 # Call the main function
 main()
+
+------------ OUTPUT ------------
+>>>
+Roberts-iMac:~ robertmitchell$ python3.4 ~/GitHub/CS21A/Assignments/A3.py
+Enter the number of packages purchased: 5
+Enter the number of packages purchased:  5
+Discount Amount: $0.00
+Total Amount: $495.00
+
+Roberts-iMac:~ robertmitchell$ python3.4 ~/GitHub/CS21A/Assignments/A3.py
+Enter the number of packages purchased: 13
+Enter the number of packages purchased:  13
+Discount Amount: $257.40
+Total Amount: $1,029.60
+
+Roberts-iMac:~ robertmitchell$ python3.4 ~/GitHub/CS21A/Assignments/A3.py
+Enter the number of packages purchased: 34
+Enter the number of packages purchased:  34
+Discount Amount: $1,009.80
+Total Amount: $2,356.20
+
+Roberts-iMac:~ robertmitchell$ python3.4 ~/GitHub/CS21A/Assignments/A3.py
+Enter the number of packages purchased: 84
+Enter the number of packages purchased:  84
+Discount Amount: $3,326.40
+Total Amount: $4,989.60
+
+Roberts-iMac:~ robertmitchell$ python3.4 ~/GitHub/CS21A/Assignments/A3.py
+Enter the number of packages purchased: 121
+Enter the number of packages purchased:  121
+Discount Amount: $5,989.50
+Total Amount: $5,989.50
+>>>
