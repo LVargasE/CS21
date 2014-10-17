@@ -15,7 +15,10 @@ def main():
     # Get the package quantity
     packageQuantity = getPackageQuantity()
 
-    # Get the regular price for all packages
+    # Display/print number of packages
+    print("Enter the number of packages purchase: ", packageQuantity)
+
+    # Get the regular retail price for all packages
     retailPrice = packageQuantity * RETAIL_PRICE
 
     # Get the discount amount
@@ -24,29 +27,35 @@ def main():
     # Calculate total amount
     totalAmount = retailPrice - discountAmount
 
-    showPurchase(discountAmount, totalAmount, packageQuantity)
+    # Show the discounted amount and the total amount!
+    showPurchase(discountAmount, totalAmount)
 
+# Using the return statement to use user's package number in other functions
 def getPackageQuantity():
     quantity = int(input("Enter the number of packages purchased: "))
     return quantity
 
-def computeDiscount(packageQuantity, retailPrice):
+# Using the return statement and a boolean function to compute the right
+# discount based on user's number. I couldn't use the logical operator
+# without the boolean function's 'x' and 'y' to model the computation
+def computeDiscount(x, y):
 
     # conditional structure to determine discount amount
-    if packageQuantity <= 9:
+    if x <= 9:
       discount = 0
-    elif packageQuantity >= 10 and packageQuanity <= 19:
-      discount = retailPrice * DISCOUNT_20
-    elif packageQuantity >= 20 and packageQuantity <= 49:
-      discount = retailPrice * DISCOUNT_30
-    elif packageQuantity >= 50 and packageQuantity <= 99:
-      discount = retailPrice * DISCOUNT_40
+    elif x >= 10 and x <= 19:
+      discount = y * DISCOUNT_20
+    elif x >= 20 and x <= 49:
+      discount = y * DISCOUNT_30
+    elif x >= 50 and x <= 99:
+      discount = y * DISCOUNT_40
     else:
-      discountAmount = retailPrice * DISCOUNT_50
+      discount = y * DISCOUNT_50
     return discount
 
-def showPurchase(discountAmount, totalAmount, packageQuantity):
-    print("Enter the number of packages purchase: ", packageQuantity)
+# Shows the total discounted amount and total amount from main() with decimal
+# places and commas
+def showPurchase(discountAmount, totalAmount):
     print("Discount Amount: $", format(discountAmount, ',.2f'), sep='')
     print("Total Amount: $", format(totalAmount, ',.2f'), sep='')
 

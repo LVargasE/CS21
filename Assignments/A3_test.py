@@ -45,7 +45,7 @@ def computeDiscount(x, y):
     elif x >= 50 and x <= 99:
       discount = y * DISCOUNT_40
     else:
-      discountAmount = y * DISCOUNT_50
+      discount = y * DISCOUNT_50
     return discount
 
 def showPurchase(discountAmount, totalAmount):
