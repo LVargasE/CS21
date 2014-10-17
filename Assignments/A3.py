@@ -3,39 +3,52 @@
 
 # Global constant for retail price of software
 RETAIL_PRICE = 99
-# Global constant for discounts to be used in computation
-DISCOUNT_20 = .2
-DISCOUNT_30 = .3
-DISCOUNT_40 = .4
-DISCOUNT_50 = .5
+# Global constant for discounts to be used in percentage computation
+DISCOUNT_20 = 0.20
+DISCOUNT_30 = 0.30
+DISCOUNT_40 = 0.40
+DISCOUNT_50 = 0.50
 
 # Main Module
 def main():
 
-    # Get user to input the amount of packages
-    packageQuantity = int(input("Enter the number of packages purchased: "))
+    # Get the package quantity
+    packageQuantity = getPackageQuantity()
 
-    # conditional structure to determine discount amount
-    if packageQuantity <= 9:
-      discountAmount = 0
-    elif packageQuantity >= 10 and packageQuanity <= 19:
-      discountAmount = parckageQuantity * DISCOUNT_20
-    elif packageQuantity >= 20 and packageQuantity <= 49:
-      discountAmount = parckageQuantity * DISCOUNT_30
-    elif packageQuantity >= 50 and packageQuantity <= 99:
-      discountAmount = parckageQuantity * DISCOUNT_40
-    else:
-      discountAmount = parckageQuantity * DISCOUNT_50
+    # Get the regular price for all packages
+    retailPrice = packageQuantity * RETAIL_PRICE
+
+    # Get the discount amount
+    discountAmount = computeDiscount(packageQuantity, retailPrice)
 
     # Calculate total amount
-    totalAmount = discountAmount - (packageQuantity * RETAIL_PRICE)
+    totalAmount = retailPrice - discountAmount
 
     showPurchase(discountAmount, totalAmount, packageQuantity)
 
+def getPackageQuantity():
+    quantity = int(input("Enter the number of packages purchased: "))
+    return quantity
+
+def computeDiscount(packageQuantity, retailPrice):
+
+    # conditional structure to determine discount amount
+    if packageQuantity <= 9:
+      discount = 0
+    elif packageQuantity >= 10 and packageQuanity <= 19:
+      discount = retailPrice * DISCOUNT_20
+    elif packageQuantity >= 20 and packageQuantity <= 49:
+      discount = retailPrice * DISCOUNT_30
+    elif packageQuantity >= 50 and packageQuantity <= 99:
+      discount = retailPrice * DISCOUNT_40
+    else:
+      discountAmount = retailPrice * DISCOUNT_50
+    return discount
+
 def showPurchase(discountAmount, totalAmount, packageQuantity):
     print("Enter the number of packages purchase: ", packageQuantity)
-    print("Discount Amount: ", discountAmount)
-    print("Total Amount: $", totalAmount)
+    print("Discount Amount: $", format(discountAmount, ',.2f'), sep='')
+    print("Total Amount: $", format(totalAmount, ',.2f'), sep='')
 
 # Call the main function
 main()
