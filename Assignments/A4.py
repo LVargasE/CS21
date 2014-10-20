@@ -50,14 +50,22 @@ def getUserInput():
   programOptions = "'B', 'A', 'C', 'P'"
   print('Please select B, A, C, or P to continue')
   print('or enter Q to view bill and quit')
-  programOptions = input('Your choice: ')
+  programOptions = input('Your choice: ').upper()
+  # example from other student is to do choice = (input('please make selection')).upper()
 
   # Continue program unless user selects Q
-  while x != 'Q' or 'q':
-    if
-    elif
-    elif
-    else
+  while x != 'Q':
+
+def choice loop(x, y, z, p, q):
+  if x = 'B':
+    y = bill()
+  elif x = 'A':
+    z = availible()
+  elif x = 'C'
+    p = consume()
+  elif x = 'P'
+    q = purchase()
+  else
 
 
 
