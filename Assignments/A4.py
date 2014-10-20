@@ -38,14 +38,29 @@ def getMenu(x, y):
   print("\tQ: show bill and Quit")
 
 def getUserInput():
+  # ?? not sure if this will work
   theBill = bill()
   whatsAvailible = availible()
   toConsume = consume()
   toPurchase = purchase()
   pleaseQuit = quit()
 
-  while userInput = [theBill, whatsAvailible, toConsume, toPurchase, pleaseQuit]:
-    print(input("your choice"))
+  # other option
+  options = []
+  programOptions = "'B', 'A', 'C', 'P'"
+  print('Please select B, A, C, or P to continue')
+  print('or enter Q to view bill and quit')
+  programOptions = input('Your choice: ')
+
+  # Continue program unless user selects Q
+  while x != 'Q' or 'q':
+    if
+    elif
+    elif
+    else
+
+
+
 
 # need 5 separate funcitons:
 
