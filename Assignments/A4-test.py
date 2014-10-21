@@ -17,14 +17,39 @@ AUTO_STOCK_PRICE = 15
 # Main program module
 def main():
   choice = 0
+  B = BILL_CHOICE
+  A = AVAILIBLE_CHOICE
+  C = CONSUME_CHOICE
+  P = PURCHASE_CHOICE
+  Q = QUIT_CHOICE
 
   # probably need the while and if together...
-  while choice != QUIT_CHOICE:
+  while choice != 'Q':
     # display menu
     getMenu()
 
     # get user's choice
-    getChoice()
+    print('\nPlease select B, A, C, or P to continue')
+    print('or enter Q to view bill and quit')
+    choice = str(input('please make selection')).upper()
+
+    if choice == 'B':
+      print('you choose B')
+    elif choice == 'A':
+      print('you choose A')
+    elif choice == 'C':
+      print('you choose C')
+    elif choice == 'P':
+      print('you choose P')
+    elif choice == 'Q':
+      print('you quit')
+      choice == QUIT_CHOICE
+    else:
+      print("Error: invalid selection.")
+
+  # exit
+  # will need some kind of exit() module
+  print("you're a quitter!")
 
 # user-input loop that gives a user 5 choices
 def getMenu(x, y):
@@ -36,28 +61,5 @@ def getMenu(x, y):
   print("\tC: Consume bars now")
   print("\tP: Purchase additional bars for current month")
   print("\tQ: show bill and Quit")
-
-def getChoice():
-  B = BILL_CHOICE
-  A = AVAILIBLE_CHOICE
-  C = CONSUME_CHOICE
-  P = PURCHASE_CHOICE
-  Q = QUIT_CHOICE
-  print('Please select B, A, C, or P to continue')
-  print('or enter Q to view bill and quit')
-  choice = str(input('please make selection')).upper()
-
-  if choice == 'B':
-    print('you choose B')
-  elif choice == 'A':
-    print('you choose A')
-  elif choice == 'C':
-    print('you choose C')
-  elif choice == 'P':
-    print('you choose P')
-  else:
-    print("Error: invalid selection.")
-    getChoice()
-
 
 main()

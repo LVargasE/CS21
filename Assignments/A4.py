@@ -77,20 +77,49 @@ def choice loop(x, y, z, p, q):
 # --> display what they owe for that month
 # --> display bars that are lost/unconsumed
 # --> reset availible capacity to 15 bars with a $15 tab
-def bill():
-  bill = 0
-  bars = 0
-  while
+def bill(newStock, newStockPrice):
+  stock = NEW_STOCK
+  price = NEW_STOCK_PRICE
+
 
 # A--show availible capacity for current month
 # --> show availible bars but do nothing
 def availible():
+  return x
 
 # C--consume bars now
 # --> ask how many bars to consume (1-10)
 # --> subtract from availilbe capacity
 # --> if consume more than capacity--make auto purchase
 def consume():
+  while eat != 0:
+    print('\nSo, how many bars would you like to eat?')
+    print('Note: you can only eat 1-10 bars at a time!')
+    eat = int(input('Enter number: '))
+
+    if eat == 1:
+      stock = stock - 1
+    elif eat == 2:
+      stock = stock - 2
+    elif eat == 3:
+      stock = stock - 3
+    elif eat == 4:
+      stock = stock - 4
+    elif eat == 5:
+      stock = stock - 5
+    elif eat == 6:
+      stock = stock - 6
+    elif eat == 7:
+      stock = stock - 7
+    elif eat == 8:
+      stock = stock - 8
+    elif eat == 9:
+      stock = stock - 9
+    elif eat == 10:
+      stock = stock - 10
+    else:
+      print('Error; please enter a whole number between 1-10')
+    
 
 # P--purchase additional bars
 # --> purchase 1-3 sets of 10 bars
