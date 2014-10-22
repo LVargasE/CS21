@@ -77,54 +77,90 @@ def choice loop(x, y, z, p, q):
 # --> display what they owe for that month
 # --> display bars that are lost/unconsumed
 # --> reset availible capacity to 15 bars with a $15 tab
-def bill(newStock, newStockPrice):
+def bill(stock, price):
   stock = NEW_STOCK
   price = NEW_STOCK_PRICE
 
 
 # A--show availible capacity for current month
 # --> show availible bars but do nothing
-def availible():
-  return x
+def availibleNow(availible):
+  print('you have', availible, 'bars left')
 
 # C--consume bars now
 # --> ask how many bars to consume (1-10)
 # --> subtract from availilbe capacity
 # --> if consume more than capacity--make auto purchase
-def consume():
+def consume(stock, bill):
+  eat = 'n'
+
   while eat != 0:
     print('\nSo, how many bars would you like to eat?')
     print('Note: you can only eat 1-10 bars at a time!')
     eat = int(input('Enter number: '))
 
-    if eat == 1:
-      stock = stock - 1
-    elif eat == 2:
+    if eat == 1 and stock >= 1:
+        stock = stock - 1
+        eat = 0
+    elif eat == 1 and stock <= 1:
+        stock = stock + AUTO_STOCK - 1
+        bill = bill + AUTO_STOCK_PRICE
+    elif eat == 2 and stock >= 2:
       stock = stock - 2
-    elif eat == 3:
+      eat = 0
+    elif eat == 3 and stock >= 3:
       stock = stock - 3
-    elif eat == 4:
+      eat = 0
+    elif eat == 4 and stock >= 4:
       stock = stock - 4
-    elif eat == 5:
+      eat = 0
+    elif eat == 5 and stock >= 5:
       stock = stock - 5
-    elif eat == 6:
+      eat = 0
+    elif eat == 6 and stock >= 6:
       stock = stock - 6
-    elif eat == 7:
+      eat = 0
+    elif eat == 7 and stock >= 7:
       stock = stock - 7
-    elif eat == 8:
+      eat = 0
+    elif eat == 8 and stock >= 8:
       stock = stock - 8
-    elif eat == 9:
+      eat = 0
+    elif eat == 9 and stock >= 9:
       stock = stock - 9
-    elif eat == 10:
+      eat = 0
+    elif eat == 10 and stock >= 10:
       stock = stock - 10
+      eat = 0
+    elif eat == 0:
+      stock == stock
+      print('lost your appetite? :P')
     else:
-      print('Error; please enter a whole number between 1-10')
-    
+      print('Error; please enter a whole number between 1-10; or, 0 to quit')
+
 
 # P--purchase additional bars
 # --> purchase 1-3 sets of 10 bars
 # --> add to bill and capacity
 def purchase():
+  buy = 'n'
+
+  while buy != 0:
+    print('\nSo, how many sets of bars would you like to buy?')
+    print('Note: you can only buy 1-3 sets of 10 bars at a time!\
+          \nAlso, 1 set of 10 costs $11')
+    buy = int(input('Enter number: '))
+
+    if buy == 1:
+      stock = stock + STOCK_PURCHASE_PRICE
+    elif buy == 2:
+      stock = stock + (STOCK_PURCHASE_PRICE * 2)
+    elif buy == 3:
+      stock = sotck + (STOCK_PURCHASE_PRICE * 3)
+    elif buy == 0:
+      stock = stock
+    else:
+      print('Error; please enter a whole number between 1-3; or, 0 to quit')
 
 # Q--show final bill and quit
 # --> show total bill (don't show capacity)
