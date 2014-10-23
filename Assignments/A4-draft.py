@@ -39,13 +39,19 @@ def main():
   C = CONSUME_CHOICE
   P = PURCHASE_CHOICE
   Q = QUIT_CHOICE
-  stockSum = 15
-  billSum = 15
-  newStock, newBill = newBill(stockSum, billSum)
+  stockSum = NEW_STOCK
+  billSum = NEW_STOCK_PRICE
+  getNewStock = NEW_STOCK
+  getNewBill = NEW_STOCK_PRICE
+  getNewStock, getNewBill = newBill(stockSum, billSum)
+  consumeStock = 0
+  consumeBill = 0
   consumeStock, consumeBill = consume(stockSum, billSum)
+  purchaseStock = 0
+  purchaseBill = 0
   purchaseStock, purchaseBill = purchase(stockSum, billSum)
-  stockSum = newStock + consumeStock + purchaseStock
-  billSum = newBill + consumeBill + purchaseBill
+  stockSum = getNewStock + consumeStock + purchaseStock
+  billSum = getNewBill + consumeBill + purchaseBill
 
 
   # Menu displayed through function
@@ -88,7 +94,7 @@ def main():
 # --> user-input loop that gives a user 5 choices
 # --> variables will pass through the function as arguments
 def getMenu(x, y):
-	# x = number of availible bars, y = current bill
+  # x = number of availible bars, y = current bill
   print("Availible Bars: ", x)
   print("Cost (so far) this month: $", y)
   print("------------------------------------")
@@ -106,8 +112,8 @@ def getMenu(x, y):
 # --> display bars that are lost/unconsumed
 # --> reset availible capacity to 15 bars with a $15 tab
 def newBill(nst, nbll):
-	# where variable nst = new stock amount
-	# where variable nbll = new stock bill
+  # where variable nst = new stock amount
+  # where variable nbll = new stock bill
   nst = NEW_STOCK
   nbll = NEW_STOCK_PRICE
 
