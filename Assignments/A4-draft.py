@@ -39,14 +39,13 @@ def main():
   C = CONSUME_CHOICE
   P = PURCHASE_CHOICE
   Q = QUIT_CHOICE
-  stock = 0
-  bill = 0
-  newStock, newBill = newBill(nst, nbll)
-  consumeStock, consumeBill = consume(cst, cbll)
-  purchaseStock, purchaseBill = purchase(pst, pbll)
+  stockSum = 15
+  billSum = 15
+  newStock, newBill = newBill(stockSum, billSum)
+  consumeStock, consumeBill = consume(stockSum, billSum)
+  purchaseStock, purchaseBill = purchase(stockSum, billSum)
   stockSum = newStock + consumeStock + purchaseStock
   billSum = newBill + consumeBill + purchaseBill
-
 
 
   # Menu displayed through function
@@ -276,7 +275,7 @@ def purchase(pst, pbll):
 # --> show total bill (don't show capacity)
 # --> quit loop
 def quit(stsum, bllsum, choi):
-	choi = Q
+  choi = Q
   print("You have donated all", stsum, "bars to charity")
   print("You owe: $", bllsum, "\nplease pay with BitCoin.")
 
