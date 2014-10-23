@@ -64,18 +64,19 @@ def main():
     # if/elif/else loop for user choice
     if choice == 'B':
       print('you choose B')
+      newBill(stockSum, billSum)
     elif choice == 'A':
       print('you choose A')
       availibleNow(stockSum)
     elif choice == 'C':
       print('you choose C')
-      consume(stock, bills)
+      consume(stockSum, billSum)
     elif choice == 'P':
       print('you choose P')
-      purchase()
+      purchase(stockSum, billSum)
     elif choice == 'Q':
-      print('you've chosed to quit)
-      quit()
+      print("you've chosed to quit")
+      quit(stockSum, billSum, choice)
     else:
       print("Error: invalid selection.")
 
@@ -111,6 +112,7 @@ def newBill(nst, nbll):
   nst = NEW_STOCK
   nbll = NEW_STOCK_PRICE
 
+  # return the modified nst/nbll variables to main()
   return nst, nbll
 
 # Option A function--show availible capacity for current month
@@ -118,6 +120,7 @@ def newBill(nst, nbll):
 def availibleNow(nst):
   print('you have', nst, 'bars left')
 
+  # return the nst variable to main()
   return nst
 
 
@@ -126,7 +129,9 @@ def availibleNow(nst):
 # --> subtract from availilbe capacity
 # --> if consume more than capacity--make auto purchase
 def consume(cst, cbll):
-  # consume cst / stock + add to cbll / bill if stock is too low
+  # cst / stock decreses by the number user enters to eat
+  # cbill / bill increases if user eats more than the remainder of cst
+  # eat controls loop
   eat = 'n'
 
   while eat != 0:
@@ -134,6 +139,7 @@ def consume(cst, cbll):
     print('Note: you can only eat 1-10 bars at a time!')
     eat = int(input('Enter number: '))
 
+    # conditions to eat one bar
     if eat == 1 and cst >= 1:
       cst = cst - 1
       eat = 0
@@ -142,6 +148,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat two bars
     elif eat == 2 and cst >= 2:
       cst = cst - 2
       eat = 0
@@ -150,6 +157,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat three bars
     elif eat == 3 and cst >= 3:
       cst = cst - 3
       eat = 0
@@ -158,6 +166,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat four bars
     elif eat == 4 and cst >= 4:
       cst = cst - 4
       eat = 0
@@ -166,6 +175,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat five bars
     elif eat == 5 and cst >= 5:
       cst = cst - 5
       eat = 0
@@ -174,6 +184,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat six bars
     elif eat == 6 and cst >= 6:
       cst = cst - 6
       eat = 0
@@ -182,6 +193,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat seven bars
     elif eat == 7 and cst >= 7:
       cst = cst - 7
       eat = 0
@@ -190,6 +202,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat eight bars
     elif eat == 8 and cst >= 8:
       cst = cst - 8
       eat = 0
@@ -198,6 +211,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat nine bars
     elif eat == 9 and cst >= 9:
       cst = cst - 9
       eat = 0
@@ -206,6 +220,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat ten bars
     elif eat == 10 and cst >= 10:
       cst = cst - 10
       eat = 0
@@ -214,6 +229,7 @@ def consume(cst, cbll):
       cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
+    # conditions to eat zero bars
     elif eat == 0:
       cst == cst
       print('lost your appetite? :P')
@@ -227,6 +243,9 @@ def consume(cst, cbll):
 # --> purchase 1-3 sets of 10 bars
 # --> add to bill and capacity
 def purchase(pst, pbll):
+  # pst / stock increases by 10 when 1 set is purchased
+  # pbll / bill is increased by 11 each time 1 set is purchased
+  # buy controls loop
   buy = 'n'
 
   while buy != 0:
@@ -249,13 +268,29 @@ def purchase(pst, pbll):
     else:
       print('Error; please enter a whole number between 1-3; or, 0 to quit')
 
+    # return pst + pbll for use in main()
+    return pst, pbll
+
 
 # Option Q--show final bill and quit
 # --> show total bill (don't show capacity)
 # --> quit loop
-def quit():
-	choice = Q
-	return Q
+def quit(stsum, bllsum, choi):
+	choi = Q
+  print("You have donated all", stsum, "bars to charity")
+  print("You owe: $", bllsum, "\nplease pay with BitCoin.")
+
+  print('.')
+  print('.')
+  print('.')
+  print('.')
+  stsum = 0
+  bllsum = 0
+  print("You now have", stsum, "bars, and now owe, $", billSum)
+
+  # return stsum/bllsum variables and the 'Q' for quit variable to main()
+  return stsum, bllsum, choice
+
 
 # call the main function
 main()
