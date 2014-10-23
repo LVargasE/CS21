@@ -8,12 +8,13 @@
 # Two ways to consume--a less expensive way and a more expensive way
 # Way 1--PLANED: buy before reaching 0 availible bars
 # --> purchase 10 bars for $11
-# ----> can only purchase 30 bars at once ($33), but can make infinite purcases a month
+# ----> can only purchase 30 bars at once ($33), but can make infinite purcases
+#       a month
 # Way 2--> AUTOMATIC: consume negative bars that are purchased automatically
 # --> automatic 10 bars for $15 (10 bars garuntees enough for one session)
 
-# Named constants
-# --> Choices are assigned numberic values
+# Global/named constants
+# --> User choices are assigned numberic values
 # --> Stock numbers and price numbers assigned to ease use of computation
 BILL_CHOICE = 1
 AVAILIBLE_CHOICE = 2
@@ -28,9 +29,9 @@ AUTO_STOCK = 10
 AUTO_STOCK_PRICE = 15
 
 # Main program module
-# global constants are assigned string letters for menu options
-# local constant choice controls loop
-# local constant stock and bill will collect totals until a new month is started
+# global constants are assigned string letters for menu + validation
+# local constant "choice" controls loop
+# local constant "stock" + "bill" will collect totals until a new month is started
 def main():
   choice = 0
   B = BILL_CHOICE
@@ -40,9 +41,11 @@ def main():
   Q = QUIT_CHOICE
   stock = 0
   bill = 0
-  newStock, newBill = newBill(stock, bill)
-  consumeStock, consumeBill = consume(st, bll)
-  purchaseStock, purchaseBill =
+  newStock, newBill = newBill(nst, nbll)
+  consumeStock, consumeBill = consume(cst, cbll)
+  purchaseStock, purchaseBill = purchase(pst, pbll)
+  stockSum = newStock + consumeStock + purchaseStock
+  billSum = newBill + consumeBill + purchaseBill
 
 
 
@@ -50,7 +53,7 @@ def main():
   # if/elif/else loop to validate user choice and call other functions called
   while choice != 'Q':
     # display menu
-    getMenu(availibleBars, currentBill)
+    getMenu(stockSum, billSum)
 
     # get user's choice as string
     # --> input validated through the while loop and .upper() to convert input
@@ -63,15 +66,16 @@ def main():
       print('you choose B')
     elif choice == 'A':
       print('you choose A')
+      availibleNow(stockSum)
     elif choice == 'C':
       print('you choose C')
       consume(stock, bills)
     elif choice == 'P':
       print('you choose P')
-
+      purchase()
     elif choice == 'Q':
       print('you've chosed to quit)
-      ?quit()
+      quit()
     else:
       print("Error: invalid selection.")
 
@@ -101,26 +105,28 @@ def getMenu(x, y):
 # --> display what they owe for that month
 # --> display bars that are lost/unconsumed
 # --> reset availible capacity to 15 bars with a $15 tab
-def newBill(st, pr):
-	# where variable st = new stock amount
-	# where variable pr = new stock price
-  st = NEW_STOCK
-  pr = NEW_STOCK_PRICE
+def newBill(nst, nbll):
+	# where variable nst = new stock amount
+	# where variable nbll = new stock bill
+  nst = NEW_STOCK
+  nbll = NEW_STOCK_PRICE
 
-  return st, pr
+  return nst, nbll
 
 # Option A function--show availible capacity for current month
 # --> show availible bars but do nothing
-def availibleNow(availible):
-  print('you have', availible, 'bars left')
+def availibleNow(nst):
+  print('you have', nst, 'bars left')
+
+  return nst
 
 
 # Option C function--consume bars now
 # --> ask how many bars to consume (1-10)
 # --> subtract from availilbe capacity
 # --> if consume more than capacity--make auto purchase
-def consume(st, bll):
-  # consume st / stock and add to bll / bill if stock is too low
+def consume(cst, cbll):
+  # consume cst / stock + add to cbll / bill if stock is too low
   eat = 'n'
 
   while eat != 0:
@@ -128,99 +134,99 @@ def consume(st, bll):
     print('Note: you can only eat 1-10 bars at a time!')
     eat = int(input('Enter number: '))
 
-    if eat == 1 and st >= 1:
-      st = st - 1
+    if eat == 1 and cst >= 1:
+      cst = cst - 1
       eat = 0
-    elif eat == 1 and st <= 1:
-      stock = st + AUTO_STOCK - 1
-      bll = bll + AUTO_STOCK_PRICE
-      eat = 0
-
-    elif eat == 2 and st >= 2:
-      st = st - 2
-      eat = 0
-    elif eat == 2 and st <= 2:
-      stock = st + AUTO_STOCK - 2
-      bll = bll + AUTO_STOCK_PRICE
+    elif eat == 1 and cst <= 1:
+      stock = cst + AUTO_STOCK - 1
+      cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
-    elif eat == 3 and st >= 3:
-      st = st - 3
+    elif eat == 2 and cst >= 2:
+      cst = cst - 2
       eat = 0
-    elif eat == 3 and st <= 3:
-      stock = st + AUTO_STOCK - 3
-      bll = bll + AUTO_STOCK_PRICE
-      eat = 0
-
-    elif eat == 4 and st >= 4:
-      st = st - 4
-      eat = 0
-    elif eat == 4 and st <= 4:
-      stock = st + AUTO_STOCK - 4
-      bll = bll + AUTO_STOCK_PRICE
+    elif eat == 2 and cst <= 2:
+      stock = cst + AUTO_STOCK - 2
+      cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
-    elif eat == 5 and st >= 5:
-      st = st - 5
+    elif eat == 3 and cst >= 3:
+      cst = cst - 3
       eat = 0
-    elif eat == 5 and st <= 5:
-      stock = st + AUTO_STOCK - 5
-      bll = bll + AUTO_STOCK_PRICE
-      eat = 0
-
-    elif eat == 6 and st >= 6:
-      st = st - 6
-      eat = 0
-    elif st <= 6 and st <= 6:
-      stock = st + AUTO_STOCK - 6
-      bll = bll + AUTO_STOCK_PRICE
+    elif eat == 3 and cst <= 3:
+      stock = cst + AUTO_STOCK - 3
+      cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
-    elif eat == 7 and st >= 7:
-      st = st - 7
+    elif eat == 4 and cst >= 4:
+      cst = cst - 4
       eat = 0
-    elif eat == 7 and st <= 7:
-      stock = st + AUTO_STOCK - 7
-      bll = bll + AUTO_STOCK_PRICE
-      eat = 0
-
-    elif eat == 8 and st >= 8:
-      st = st - 8
-      eat = 0
-    elif st <= 8:
-      stock = st + AUTO_STOCK - 8
-      bll = bll + AUTO_STOCK_PRICE
+    elif eat == 4 and cst <= 4:
+      stock = cst + AUTO_STOCK - 4
+      cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
-    elif eat == 9 and st >= 9:
-      st = st - 9
+    elif eat == 5 and cst >= 5:
+      cst = cst - 5
       eat = 0
-    elif eat == 9 and st <= 9:
-      stock = st + AUTO_STOCK - 9
-      bll = bll + AUTO_STOCK_PRICE
+    elif eat == 5 and cst <= 5:
+      stock = cst + AUTO_STOCK - 5
+      cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
-    elif eat == 10 and st >= 10:
-      st = st - 10
+    elif eat == 6 and cst >= 6:
+      cst = cst - 6
       eat = 0
-    elif eat == st <= 10:
-      stock = st + AUTO_STOCK - 10
-      bll = bll + AUTO_STOCK_PRICE
+    elif cst <= 6 and cst <= 6:
+      stock = cst + AUTO_STOCK - 6
+      cbll = cbll + AUTO_STOCK_PRICE
+      eat = 0
+
+    elif eat == 7 and cst >= 7:
+      cst = cst - 7
+      eat = 0
+    elif eat == 7 and cst <= 7:
+      stock = cst + AUTO_STOCK - 7
+      cbll = cbll + AUTO_STOCK_PRICE
+      eat = 0
+
+    elif eat == 8 and cst >= 8:
+      cst = cst - 8
+      eat = 0
+    elif cst <= 8:
+      stock = cst + AUTO_STOCK - 8
+      cbll = cbll + AUTO_STOCK_PRICE
+      eat = 0
+
+    elif eat == 9 and cst >= 9:
+      cst = cst - 9
+      eat = 0
+    elif eat == 9 and cst <= 9:
+      stock = cst + AUTO_STOCK - 9
+      cbll = cbll + AUTO_STOCK_PRICE
+      eat = 0
+
+    elif eat == 10 and cst >= 10:
+      cst = cst - 10
+      eat = 0
+    elif eat == cst <= 10:
+      stock = cst + AUTO_STOCK - 10
+      cbll = cbll + AUTO_STOCK_PRICE
       eat = 0
 
     elif eat == 0:
-      st == st
+      cst == cst
       print('lost your appetite? :P')
     else:
       print('Error; please enter a whole number between 1-10; or, 0 to quit')
 
-  return st, bll
+  return cst, cbll
 
 
 # Option P function--purchase additional bars
 # --> purchase 1-3 sets of 10 bars
 # --> add to bill and capacity
-def purchase():
+def purchase(pst, pbll):
   buy = 'n'
 
   while buy != 0:
@@ -230,13 +236,16 @@ def purchase():
     buy = int(input('Enter number: '))
 
     if buy == 1:
-      stock = stock + STOCK_PURCHASE_PRICE
+      pst = pst + STOCK_PURCHASE
+      pbll = pbll + STOCK_PURCHASE_PRICE
     elif buy == 2:
-      stock = stock + (STOCK_PURCHASE_PRICE * 2)
+      pst = pst + (STOCK_PURCHASE * 2)
+      pbll = pbll + (STOCK_PURCHASE_PRICE * 2)
     elif buy == 3:
-      stock = sotck + (STOCK_PURCHASE_PRICE * 3)
+      pst = pst + (STOCK_PURCHASE * 3)
+      pbll = pbll + (STOCK_PURCHASE_PRICE * 3)
     elif buy == 0:
-      stock = stock
+      pbll = pbll
     else:
       print('Error; please enter a whole number between 1-3; or, 0 to quit')
 
