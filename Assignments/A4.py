@@ -36,7 +36,7 @@ def main():
     # --> reset availible capacity to 15 bars with a $15 tab
     if choice == 'B':
       print('you choose B')
-      print('you owe: $', billSum, '\nYou also donate: 'stockSum,'bars to charity')
+      print('you owe: $', billSum, '\nYou also donate: ', stockSum,'bars to charity')
       stockSum = NEW_STOCK
       billSum = NEW_STOCK_PRICE
 
