@@ -8,9 +8,11 @@
 # Two ways to consume--a less expensive way and a more expensive way
 # Way 1--PLANED: buy before reaching 0 availible bars
 # --> purchase 10 bars for $11
-# ----> can only purchase 30 bars at once ($33), but can make infinite purcases a month# Named constantSTOCK_PURCHASE = 10STOCK_PURCHASE_PRICE = 11
+# ----> can only purchase 30 bars at once ($33), but can make infinite purcases
+#       a month
 # Way 2--AUTOMATIC: consume negative bars that are purchased automatically
 # --> automatic 10 bars for $15 (10 bars garuntees enough for one session)
+#
 # Named Constants
 NEW_STOCK = 15
 NEW_STOCK_PRICE = 15
@@ -33,22 +35,23 @@ def main():
     # --> close month
     # --> display what they owe for that month
     # --> display bars that are lost/unconsumed
-    # --> reset availible capacity to 15 bars with a $15 tab
+    # --> reset available capacity to 15 bars with a $15 tab
     if choice == 'B':
       print('you choose B')
-      print('you owe: $', billSum, '\nYou also donate: ', stockSum,'bars to charity')
+      print('you owe: $', billSum, '\nYou also donate: ', stockSum,
+            'bars to charity')
       stockSum = NEW_STOCK
       billSum = NEW_STOCK_PRICE
 
-    # A--show availible capacity for current month
-    # --> show availible bars but do nothing  print stock
+    # A--show available capacity for current month
+    # --> show available bars but do nothing  print stock
     elif choice == 'A':
       print('you choose A')
       print('you have', stockSum, 'bars left')
 
     # C--consume bars now
     # --> ask how many bars to consume (1-10)
-    # --> subtract from availilbe capacity
+    # --> subtract from available capacity
     # --> if consume more than capacity--make auto purchase
     # --> calculate with while loop and if/elif/else loop
     elif choice == 'C':
@@ -57,7 +60,7 @@ def main():
       while eat != 0:
         print('\nSo, how many bars would you like to eat?')
         print('Note: you can only eat 1-10 bars at a time!')
-        eat = int(input('Enter number: '))
+        eat = int(input('Enter number: \t'))
         if eat == 1 and  stockSum >= 1:
           stockSum =  stockSum - 1
           eat = 0
@@ -124,15 +127,16 @@ def main():
         elif eat == 10 and stockSum >= 10:
           stockSum = stockSum - 10
           eat = 0
-        elif eat == stockSum <= 10:
+        elif eat == 10 and stockSum <= 10:
           stockSum = stockSum + AUTO_STOCK - 10
           billSum = billSum + AUTO_STOCK_PRICE
           eat = 0
         elif eat == 0:
           stockSum == stockSum
-          print('lost your appetite? :P')
+          print('\nlost your appetite? :P')
         else:
-          print('Error; please enter a whole number between 1-10; or, 0 to quit')
+          print('\nError; please enter a whole number between 1-10;')
+          print('or, 0 to quit')
 
     # P--purchase additional bars
     # --> purchase 1-3 sets of 10 bars
@@ -167,7 +171,7 @@ def main():
     # --> show total bill
     # --> quit loop
     elif choice == 'Q':
-      print("you've chosed to quit")
+      print("\nyou've chosen to quit")
       choice = 'Q'
       print("\nYou have donated all", stockSum, "bars to charity")
       print("You owe: $", billSum, "\nplease pay with BitCoin.")
@@ -176,18 +180,19 @@ def main():
       print("You now have", stockSum, "bars, and now owe, $", billSum)
     else:
       print("Error: invalid selection.")
+      print("Please enter either an B, A, C, P, or Q")
   print("Thank you!  Have a nice day!")
 
 # function for displaying the menu
 # passes the stock and the bill as an argument
 def getMenu(x, y):
-  print("Availible Bars: ", x)
+  print("Available Bars: ", x)
   print("Cost (so far) this month: $", y)
-  print("\nMenu\tB: Show Bill and start new month")
-  print("\tA: Show Availilbe number of bars for current Month")
+  print("\nMenu\tB: Show bill and start new month")
+  print("\tA: Show available number of bars for current Month")
   print("\tC: Consume bars now")
   print("\tP: Purchase additional bars for current month")
-  print("\tQ: show bill and Quit")
+  print("\tQ: show bill and quit")
 
 # call the main function
 main()
