@@ -14,19 +14,21 @@ A5 --> Rock, Paper, Scissors
      that receives numbers for the user/player and computer
  --> value returning function named choiceString(choice)
 """
-
+# import the random number module
 import random
 
 # main program
 def main():
-  # local variables
+  # local variables to calculate total wins to display at end
   pythonWins = 0
   youWin = 0
   youDraw = 0
   choice = 0
 
+  # intro with rules and all options
   getIntro()
 
+  # while loop to decide to display game, help, + exit functions
   while choice != 5:
     choice = int(input('Your move.\
                     \nOr, do you give up?\
@@ -34,16 +36,24 @@ def main():
                     \nEnter 5 to quit and review scores.\n\n-->'))
 
     if choice == 1 or choice == 2 or choice == 3:
-      # ...
+      # simulate the fists going up and down once, twice, thrice
       print("One\nTwo\nThree")
 
+      # use function from random module to pass random int numbers
       pythonChoice = random.randrange(1,4)
 
+      # the next two functions convert the number into their str equivalents
       choiceStr = num2str(choice)
       pythonChoiceStr = num2str(pythonChoice)
 
+      # algorithm for determining winner
+      # in all 9 of the possible choices, the user's choice subtracted by
+      # the computer's choice mod/remainder 3 (for the amount of numbers)
+      # will result in either a 1 (for the user), or 2 (for the computer)
+      # this tells us who won (1/user, or 2/computer)
       whoWins = (choice - pythonChoice) % 3
 
+      # whoever wins has their local variable increased by one to keep track
       if whoWins == 1:
         winner = 'You'
         youWin += 1
@@ -54,13 +64,16 @@ def main():
         winner = 'Nobody'
         youDraw += 1
 
+      # function to determin winner and print results
       getWinner(choiceStr, pythonChoiceStr, winner)
 
+    # remaining choices that are non-game related
     elif choice == 4:
       getIntro()
     elif choice == 5:
       print('You win: ', youWin, 'times!\
             \nPython wins: ', pythonWins, 'times!')
+      # quick if/elif loop to print the right phrasing for the winner
       if youWin <= pythonWins:
         print("\nThere's no clear winner here; what a draw.")
       elif youWin < pythonWins:
@@ -68,11 +81,13 @@ def main():
               \nBetter luck next time!")
       elif youWin > pythonWins:
         print("you really stuck it to the man! You're the victor!")
+    # just to ensure no other ints are entered (only 1-5)
     else:
       print('Please enter either:\
             \t1 for Rock\n\t2 for Paper\n\t3 for Scissors\
             \n\n"4" for intro rules.\n"5" to Quit.')
 
+# this is the intro to the game with rules and values
 def getIntro():
   print('Python wants to play a game with you!\
          \nHow about Rock, Paper, Scissors?')
@@ -87,6 +102,7 @@ def getIntro():
         \n\n\t Paper/Paper, Rock/Rock, or Scissors/Scissors means a tie.')
   print('\n\n Are you ready?')
 
+#function that converts the number to the str equivalent
 def num2str(num):
   if num == 1:
     return 'Rock'
@@ -95,6 +111,7 @@ def num2str(num):
   elif num == 3:
     return 'Scissors'
 
+# function to determin and print the winner!
 def getWinner(choiceStr, pythonChoiceStr, winner):
   print("You've chosen", choiceStr,"\
         \nPython has chosen", pythonChoiceStr)
@@ -105,7 +122,6 @@ def getWinner(choiceStr, pythonChoiceStr, winner):
   elif winner == 'Nobody':
     print("Well, it's a draw")
   return choiceStr, pythonChoiceStr, winner
-
 
 # call the main function
 main()
