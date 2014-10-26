@@ -37,7 +37,7 @@ def main():
 
     if choice == 1 or choice == 2 or choice == 3:
       # simulate the fists going up and down once, twice, thrice
-      print("One\nTwo\nThree")
+      print("\tOne\n\tTwo\n\tThree")
 
       # use function from random module to pass random int numbers
       pythonChoice = random.randrange(1,4)
@@ -84,7 +84,7 @@ def main():
     # just to ensure no other ints are entered (only 1-5)
     else:
       print('Please enter either:\
-            \t1 for Rock\n\t2 for Paper\n\t3 for Scissors\
+            \n\t1 for Rock\n\t2 for Paper\n\t3 for Scissors\
             \n\n"4" for intro rules.\n"5" to Quit.')
 
 # this is the intro to the game with rules and values
@@ -92,15 +92,15 @@ def getIntro():
   print('Python wants to play a game with you!\
          \nHow about Rock, Paper, Scissors?')
   print('Ok. Remember these values and what they are associated with:\
-        \n\t (1) means Rock\
-        \n\t (2) means Paper\
-        \n\t (3) means Scissors')
+        \n\t(1) means Rock\
+        \n\t(2) means Paper\
+        \n\t(3) means Scissors')
   print('\nHere are the rules of the game:\
-        \n\t Paper covers Rock\
-        \n\t Rock smashes Scissors\
-        \n\t Scissors cut Paper\
-        \n\n\t Paper/Paper, Rock/Rock, or Scissors/Scissors means a tie.')
-  print('\n\n Are you ready?')
+        \n\tPaper covers Rock\
+        \n\tRock smashes Scissors\
+        \n\tScissors cut Paper\
+        \n\n\tPaper/Paper, Rock/Rock, or Scissors/Scissors means a tie.')
+  print('\n\nAre you ready?')
 
 #function that converts the number to the str equivalent
 def num2str(num):
@@ -113,14 +113,14 @@ def num2str(num):
 
 # function to determin and print the winner!
 def getWinner(choiceStr, pythonChoiceStr, winner):
-  print("You've chosen", choiceStr,"\
-        \nPython has chosen", pythonChoiceStr)
+  print("\tYou've chosen", choiceStr,"\
+        \n\tPython has chosen", pythonChoiceStr,'\n')
   if winner == 'You':
-    print('You win!')
+    print('\n\tYou win!\n')
   elif winner == 'Python':
-    print('Sorry.  Python wins.')
+    print('\n\tSorry.  Python wins.\n')
   elif winner == 'Nobody':
-    print("Well, it's a draw")
+    print("\n\tWell, it's a draw\n")
   return choiceStr, pythonChoiceStr, winner
 
 # call the main function
