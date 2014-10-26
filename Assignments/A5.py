@@ -74,7 +74,7 @@ def main():
       print('You win: ', youWin, 'times!\
             \nPython wins: ', pythonWins, 'times!')
       # quick if/elif loop to print the right phrasing for the winner
-      if youWin <= pythonWins:
+      if youWin == pythonWins:
         print("\nThere's no clear winner here; what a draw.")
       elif youWin < pythonWins:
         print("Python bested you this time...\
