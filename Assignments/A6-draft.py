@@ -45,4 +45,20 @@ A5 --> Golf Scores/Statistics
       all choices must be used twice in random order (except Q)--show one
       illegal choice/bad choice
 
+      hints: -->read from 'Golfers.txt'; write to 'temp'; rename 'temp'
+                'Golfers.txt'
+             -->pages
+
+
 """
+
+golfersfile = open("Golfers.txt", "r")
+aline = golfersfile.readline()
+
+for aline in golfersfile:
+    values = aline.split(2)
+    print('Golfer's Name: ', values[0], 'had a score of ')
+
+
+
+golfersfile.close()
