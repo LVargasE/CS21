@@ -52,13 +52,16 @@ A5 --> Golf Scores/Statistics
 
 """
 
-golfersfile = open("Golfers.txt", "r")
-aline = golfersfile.readline()
+infile = open("Golfers.txt", "r")
+outfile = open("Golfers.txt", "w")
 
-for aline in golfersfile:
-    values = aline.split(2)
+aline = infile.readline()
+
+for aline in infile:
+    values = aline.split(2) # not sure the 2 will work
     print('Golfer's Name: ', values[0], 'had a score of ')
 
 
 
-golfersfile.close()
+infile.close()
+outfile.close()
