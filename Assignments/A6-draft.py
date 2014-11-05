@@ -1,20 +1,14 @@
 """
-A5 --> Golf Scores/Statistics
+A5 --> Golf Scores
 
- Use file to save/update Golf Scores
-
- program specs
+ program specs:
  -->  Display all records in the file, then enter user-input
       loop with a 5 value menu at each pass of the loop (use a function)
  -->  User enters single letter only (use validation)
  -->  The user can change one of the records (C), add a record to the file (A),
       remove a record from the file (R), display all the records (D), or
       quit (Q).
-
-
-
-
-
+ program tips:
  -->  Always validate user input
  -->  Don't need to test for non-numeric values when user asked to enter numbers
  -->  Submit a run that shows everything with several passes of the loop
@@ -27,32 +21,45 @@ A5 --> Golf Scores/Statistics
 
 
 """
-# main
+# need to remove and rename files
+import os
+
+# main function
 def main():
-    # open Golfers.txt to read to
-    infile = open("Golfers.txt", "r")
-    # create + open a temp file for user input
-    outfile = open("Temp.txt", "w")
+    # local variable
+    choice = ''
+    found = ''
 
-    name = infile.readline()
+    # start by printing all records from Golfers.txt
+    showRecord()
 
-    while name != '':
-        score = int(infile.readline())
+    # get input from user
+    while choice != 'Q':
+        # display menu
+        getMenu()
 
-        name = name.rstrip('\n')
+        # get user choice
+        choice = str(input('please make selection:\t--> ')).upper()
 
+        # this letter is not one of the legal types
+        while choice != 'C' and letter != 'A' and letter != 'R' \
+              and letter != 'D' and letter != 'Q':
+            choice = str(input("Use C, A, R, D, or Q, please.\t--> ")).upper()
 
+        if choice == 'C':
+            # get the search value and new score
+            search = input("Enter the Golfer's name you are looking for: ")
+            newScore = int(input('Enter the updated score: '))
 
-    for aline in infile:
-        values = aline.split(2) # not sure the 2 will work
-        print('Golfer's Name: ', values[0], 'had a score of ')
+            # send search + newScore to changeRecord()
+            changeRecord(search, newScore, err)
 
-
-
-    infile.close()
-
-    outfile.close()
-
+            # determin if there is an I/O error
+            if found == True:
+                print('Name found and successfully written to file')
+            elif found == False:
+                pring('There seems to be a problem with the file \
+                       are you sure the file exists?')
 
 """
 --> for C:
@@ -67,13 +74,9 @@ def main():
 """
 # menu selection 'C' modifies a record
 # --> needs to return 'bool'
-def changeRecord():
+def changeRecord(search, newScore, found):
     # create bool var to use as flag
     found = False
-
-    # get the search value and new score
-    search = input("Enter the Golfer's name you are looking for: ")
-    newScore = int(input('Enter the updated score: '))
 
     # open the original Golfers.txt file
     infile = open("Golfers.txt", "r")
@@ -107,7 +110,24 @@ def changeRecord():
         # read next name
         name = infile.readline()
 
-    # Close Golfers.txt file
+        # return bool var
+        return found
+
+    # Close Golfers.txt file + Temp.txt file
+    infile.close()
+    outfile.close()
+
+    # Delete original Golfers.txt file
+    os.remove('Golfers.txt')
+
+    # Rename Temp.txt file
+    os.rename('Temp.txt', 'Golfers.txt')
+
+    # If search value was not found in file, return False
+    if found:
+        return False
+    else:
+        return True
 
 """
 --> for A:
@@ -145,7 +165,38 @@ def removeRecord():
 """
 # menu selection 'D' shows user the file
 def showRecord():
-    ...
+    # open the original Golfers.txt file to print all records
+    infile = open("Golfers.txt", "r")
+
+    # read the first record's 'name' field
+    name = infile.readline()
+
+    # read rest of file
+    while name != '':
+        # read the score field
+        score = infile.readline()
+
+        # strip the '\n' from 'name'
+        name = name.rstrip('\n')
+        score = score.rstrip('\n')
+
+        # read next name
+        name = infile.readline()
+
+    # print all records from Golfers.txt
+    print('Name of Golfer: ', name, '\tScore: ', score)
+
+    # Close Golfers.txt file
+    infile.close()
+
+# User menu
+def getMenu():
+  print('Please make a selection from the Menu below:\
+        \n\t(C) make a Change to one of the records\
+        \n\t(A) Add a record to the file\
+        \n\t(R) Remove a record from the file\
+        \n\t(D) Display the file with all records\
+        \n\t(Q) Quit the program')
 
 """
 -->  for Q:
