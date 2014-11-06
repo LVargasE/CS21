@@ -1,52 +1,33 @@
-def infileRead():
-    # open the original Golfers.txt file
-    infile = open("Golfers.txt", "r")
+"""
+names of things:
+ choice = ''
+ found = ''
+ getMenu()
+ changeRecord(searchName, score)
+ addRecord(name, score)
+ removeRecord(searchName)
+ disploayRecords()
 
-    # read the first record's 'name' field
-    name = infile.readline()
+"""
 
-    # read rest of file
-    while name != '':
-        # read the score field
-        score = infile.readline()
+import os
 
-        # strip the '\n' from 'name' and 'score'
-        name = name.rstrip('\n')
-        score = score.rstrip('\n')
+choice = ''
+found = ''
 
-        # read next name
-        name = infile.readline()
+def displayRecords(var):
+        
 
-    # Close Golfers.txt file
-    infile.close()
+def addRecords(var):
 
-def outfileWrite():
-    # open the temp file
-    outfile = open("Temp.txt", "w")
+def lookUpRecords(var):
 
-    # read rest of file
-    while name != '':
-        # read the score field
-        score = infile.readline()
+def removeRecords(var):
 
-        # strip the '\n' from 'name'
-        name = name.rstrip('\n')
+def loadRecords(var):
 
-        # search determins if user input is written to Golfer's file, or temp
-        if name == search:
-            outfile.write(name + '\n')
-            outfile.write(str(newScore) + '\n')
+def saveRecords(var):
 
-            # set found flag to true
-            found = True
-        else:
-            # write original score to temp file
-            outfile.write(name + '\n')
-            outfile.write(str(score) + '\n')
+def getMenu():
 
-        # read next name
-        name = infile.readline()
-
-    # Close Golfers.txt file + Temp.txt file
-    infile.close()
-    outfile.close()
+def main():

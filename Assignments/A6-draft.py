@@ -56,7 +56,7 @@ def main():
                 newScore = int(input('Enter a number between 1-150: '))
 
             # send search, newScore, + err to changeRecord()
-            changeRecord(search, newScore, err)
+            changeRecord(search, newScore, found)
 
             # determin if there is an I/O error
 
@@ -64,26 +64,28 @@ def main():
                 print('Name found and successfully written to file')
             elif found == False:
                 try:
+                    showRecord()
                     search = input("Are you sure you have the correct name \
                                     of the Golfer you are looking for? \
+                                    \nuse the record above as a reference \
                                     \nEnter the Golfer's name you are looking \
-                                    for: ")
+                                    for: \t--> ")
                     break
                 except ValueError:
                     print("Oops!  That is not a correct Golfer's name!")
 
         elif choice == 'A':
             # add new record to the file
-            print("Enter a golfer's name and their score:")
-            name = input('name: ')
-            score = int(input('score: '))
+            print("Enter a new golfer's name and their score:")
+            newName = input('\n\tName: \t--> ')
+            newScore = int(input('\n\tScore: \t--> '))
 
             # validate user input for ints between 1-150
-            if score <= 1 or score >= 150:
-                score = int(input('Enter a number between 1-150: '))
+            if newScore <= 1 or newScore >= 150:
+                newScore = int(input('\nEnter a number between 1-150: \t--> '))
 
             # send name, score, + err to addRecord()
-            addRecord(name, score, err)
+            addRecord(newName, newScore, found)
 
 """
 --> for C:
@@ -161,13 +163,56 @@ def changeRecord(search, newScore, found):
 """
 # menu selection 'A' adds a record to file
 # --> needs to return 'bool'
-def addRecord():
-    # open Golfers.txt file to append
-    outfile = open("Golfers.txt", "a")
+def addRecord(newName, newScore, found):
+    # first, need to search record to preven duplicate records
+    # create bool var to use as flag
+    found = False
 
-    # append data to file
-    outfile.write(name + '\n')
-    outfile.write(str(score) + '\n')
+    # open the original Golfers.txt file
+    infile = open("Golfers.txt", "r")
+
+    # read the first record's 'name' field
+    name = infile.readline()
+
+    # read rest of file
+    while name != '':
+        # read the score field
+        score = infile.readline()
+
+        # strip the '\n' from 'name'
+        name = name.rstrip('\n')
+
+        # search determins if user input is written to Golfer's file, or temp
+        if name == search:
+            print('There is already a record for this golfer.')
+
+            # set found flag to true
+            found = False
+        else:
+            # write original score to temp file
+            outfile.write(name + '\n')
+            outfile.write(str(score) + '\n')
+
+        # read next name
+        name = infile.readline()
+
+    # Close Golfers.txt file + Temp.txt file
+    infile.close()
+    outfile.close()
+
+    # Delete original Golfers.txt file
+    os.remove('Golfers.txt')
+
+    # Rename Temp.txt file
+    os.rename('Temp.txt', 'Golfers.txt')
+
+    # If search value was not found in file, return False
+    if found:
+        return False
+    else:
+        return True
+
+
 
 
 
@@ -208,11 +253,11 @@ def showRecord():
         name = name.rstrip('\n')
         score = score.rstrip('\n')
 
+        # print all records from Golfers.txt
+        print('Name of Golfer: ', name, '\t\tScore: ', score)
+
         # read next name
         name = infile.readline()
-
-    # print all records from Golfers.txt
-    print('Name of Golfer: ', name, '\tScore: ', score)
 
     # Close Golfers.txt file
     infile.close()
@@ -231,3 +276,6 @@ def getMenu():
       End program--data file must be closed before ending the program
 """
 # menu selection 'Q' quits program (likely needs to be in main())
+
+# call main function
+main()
