@@ -51,15 +51,39 @@ def main():
             search = input("Enter the Golfer's name you are looking for: ")
             newScore = int(input('Enter the updated score: '))
 
-            # send search + newScore to changeRecord()
+            # validate user input for ints between 1-150
+            if newScore <= 1 or newScore >= 150:
+                newScore = int(input('Enter a number between 1-150: '))
+
+            # send search, newScore, + err to changeRecord()
             changeRecord(search, newScore, err)
 
             # determin if there is an I/O error
+
             if found == True:
                 print('Name found and successfully written to file')
             elif found == False:
-                pring('There seems to be a problem with the file \
-                       are you sure the file exists?')
+                try:
+                    search = input("Are you sure you have the correct name \
+                                    of the Golfer you are looking for? \
+                                    \nEnter the Golfer's name you are looking \
+                                    for: ")
+                    break
+                except ValueError:
+                    print("Oops!  That is not a correct Golfer's name!")
+
+        elif choice == 'A':
+            # add new record to the file
+            print("Enter a golfer's name and their score:")
+            name = input('name: ')
+            score = int(input('score: '))
+
+            # validate user input for ints between 1-150
+            if score <= 1 or score >= 150:
+                score = int(input('Enter a number between 1-150: '))
+
+            # send name, score, + err to addRecord()
+            addRecord(name, score, err)
 
 """
 --> for C:
@@ -67,8 +91,8 @@ def main():
       ask for new score
       validate
       send info to changeRecord(searchName, score) function
-      if no match is found, write to temp file + return true to main
-      if name is not found, return false to main
+      if no match is found, write to temp file + return false to main
+      if name is found, write to file + return true to main
       main() lets user know if they were successful or not
       (use a try/except statement looking for the IOError)
 """
@@ -110,9 +134,6 @@ def changeRecord(search, newScore, found):
         # read next name
         name = infile.readline()
 
-        # return bool var
-        return found
-
     # Close Golfers.txt file + Temp.txt file
     infile.close()
     outfile.close()
@@ -141,7 +162,14 @@ def changeRecord(search, newScore, found):
 # menu selection 'A' adds a record to file
 # --> needs to return 'bool'
 def addRecord():
-    ...
+    # open Golfers.txt file to append
+    outfile = open("Golfers.txt", "a")
+
+    # append data to file
+    outfile.write(name + '\n')
+    outfile.write(str(score) + '\n')
+
+
 
 """
 -->  for R:
