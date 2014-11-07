@@ -107,7 +107,7 @@ def addRecords(found, name, score, searchName):
             infile.write(str(score) + '\n')
             found = False
 
-    return found    
+    return found
 
 def removeRecords(var):
     pass
@@ -118,7 +118,13 @@ def saveRecords(var):
 
 
 def getMenu():
-    pass
+
+    print('Please make a selection from the Menu below:\
+          \n\t(C) make a Change to one of the records\
+          \n\t(A) Add a record to the file\
+          \n\t(R) Remove a record from the file\
+          \n\t(D) Display the file with all records\
+          \n\t(Q) Quit the program')
 
 
 def main():
