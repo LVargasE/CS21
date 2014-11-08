@@ -1,20 +1,6 @@
 """
 A5 --> Golf Scores
 
- program specs:
- -->  Display all records in the file, then enter user-input
-      loop with a 5 value menu at each pass of the loop (use a function)
- -->  User enters single letter only (use validation)
- -->  The user can change one of the records (C), add a record to the file (A),
-      remove a record from the file (R), display all the records (D), or
-      quit (Q).
- program tips:
- -->  Always validate user input
- -->  Don't need to test for non-numeric values when user asked to enter numbers
- -->  Submit a run that shows everything with several passes of the loop
-      all choices must be used twice in random order (except Q)--show one
-      illegal choice/bad choice
-
 """
 # needed to remove/rename files
 import os
@@ -26,9 +12,10 @@ records = {}
 def main():
     # local variables
     choice = ''
-    found = False
     name = ''
     score = ''
+    newScore = ''
+    found = False
 
     # start by loading and printing all records from Golfers.txt
     # first load records
@@ -53,74 +40,104 @@ def main():
 
         # (C) make a Change to one of the records
         if choice == 'C':
+            print('\nYou are going to change a record in the file.\n')
             # get user input
             searchName = input('\nPlease enter the name of the golfer \
                                 \nwhose record you would like to change. \
                                 \n\ne.g., Tiger Woods (given name, surname). \
                                 \n\n--> ')
 
-            newScore = int(input('\nPlease enter the new score of the golfer \
-                                  \nwhose record you would like to change. \
-                                  \n\ne.g., a number between 1-150. \
-                                  \n\n--> '))
-
-            # validate user input for ints between 1-150
-            if newScore <= 1 or newScore >= 150:
+            # protect against ValueError failures quitting program
+            try:
+              newScore = int(input('\nPlease enter the score of the golfer \
+                                    \nwhose record you would like to change. \
+                                    \n\ne.g., a number between 1-150. \
+                                    \n\n--> '))
+              # validate user input for ints between 1-150
+              if newScore < 1 or newScore > 150:
                 newScore = int(input('\nEnter a number between 1-150: \t--> '))
+            except ValueError:
+              print('\nThat was not a number.\n')
+              # return to main menu when error occurs
+              main()
 
-            # call function to change the records
-            changeRecords(name, score, searchName, newScore)
+            # make sure newScore follows score rules
+            if newScore >= 1 and newScore <= 150:
 
-            # assign return bool from function to 'found' as var
-            found = changeRecords(name, score, searchName, newScore)
+              # call function to change the records
+              changeRecords(name, score, searchName, newScore)
 
-            # if return is False --> let user know it didn't work
-            if found != True:
-                print('Record unsuccessfully edited to file.')
+              # assign return bool from function to 'found' as var
+              found = changeRecords(name, score, searchName, newScore)
+
+              # if return is False --> let user know it didn't work
+              if found != True:
+                  print('\nRecord unsuccessfully edited to file. \
+                         \nPlease check the name to make sure a record \
+                         \nalready exists before attempting to modify. \
+                         \nYou can see current records by selecting "D".')
+              else:
+                  print('\nRecord was successfully edited to file.')
+
+            # if somehow number makes it through and it dosn't follow rules
             else:
-                print('Record was successfully edited to file.')
+              print('\nAn error occurred.  Please try again.')
 
 
         # (A) Add a record to the file
         elif choice == 'A':
-            print("\nYou are going to add a record")
+            print("\nYou are going to add a record to the file.\n")
 
             searchName = input('\nPlease enter the name of the golfer \
                                 \nyou would like to add to the record. \
                                 \n\ne.g., Tiger Woods (given name, surname). \
                                 \n\n--> ')
 
-            lookUpRecords(name, score, searchName)
+            # protect against ValueError failures quitting program
+            try:
+              newScore = int(input('\nPlease enter the score of the golfer \
+                                    \nwhose record you would like to change. \
+                                    \n\ne.g., a number between 1-150. \
+                                    \n\n--> '))
+              # validate user input for ints between 1-150
+              if newScore < 1 or newScore > 150:
+                newScore = int(input('\nEnter a number between 1-150: \t--> '))
+            except ValueError:
+              print('\nThat was not a number.\n')
+              # return to main menu when error occurs
+              main()
 
-            # assign return bool from function to 'found' as var
-            found = lookUpRecords(name, score, searchName)
+            # make sure newScore follows score rules
+            if newScore >= 1 and newScore <= 150:
 
-            print(type(found))
-            print(found)
+              # check records for searchName
+              lookUpRecords(name, score, searchName)
 
-            # if return is False --> let user know it didn't work
-            if found == True:
-                print('Name already exists in Records; cannot write to file.')
+              # assign return bool from function to 'found' as var
+              found = lookUpRecords(name, score, searchName)
+
+              # if return is False --> let user know adding didn't work
+              if found == True:
+                  print('\nName already in Records; cannot write to file.')
+              else:
+                  # add name to Golfers.txt
+                  addRecords(name, score, searchName, newScore)
+
+                  # make sure name is in file
+                  lookUpRecords(name, score, searchName)
+
+                  # assign return bool from function to 'inFile' as var
+                  inFile = lookUpRecords(name, score, searchName)
+
+                  # if return is False --> let user know it didn't work
+                  if inFile != True:
+                      print('\nRecord unsuccessfully added to file.')
+                  else:
+                      print('\nRecord was successfully added to file.')
+
+            # if newScore is wrong, return False so we don't proceed
             else:
-                # add name to Golfers.txt
-                addRecords(name, score, searchName)
-
-                # make sure name is in file
-                lookUpRecords(name, score, searchName)
-
-                # assign return bool from function to 'inFile' as var
-                inFile = lookUpRecords(name, score, searchName)
-
-                print(searchName)
-                print(type(inFile))
-                print(inFile)
-
-                # if return is False --> let user know it didn't work
-                if inFile != True:
-                    print('Record unsuccessfully added to file.')
-                else:
-                    print('Record was successfully added to file.')
-
+              return False
 
 
         # (R) Remove a record from the file
@@ -131,17 +148,27 @@ def main():
                                 \n\ne.g., Tiger Woods (given name, surname). \
                                 \n\n--> ')
 
-            # call function to change the records
-            removeRecords(name, score, searchName)
+            # make sure user input matches records before proceeding
+            lookUpRecords(name, score, searchName)
 
-            found = removeRecords(name, score, searchName)
-            print(searchName)
-            print(type(found))
-            print(found)
+            # assign return bool from function to 'found' as var
+            found = lookUpRecords(name, score, searchName)
+
+            # if return is False --> let user know it didn't work
             if found != True:
-                print('Record unsuccessfully deleted from file.')
+                print('Name not found in Records.')
             else:
-                print('Record was successfully deleted from file.')
+                # call function to change the records
+                removeRecords(name, score, searchName)
+
+                # assign return bool from function to 'found' as var
+                inFile = removeRecords(name, score, searchName)
+
+                # if return is False --> let user know record was deleted!
+                if inFile != True:
+                    print('Record successfully deleted from file.')
+                else:
+                    print('Record was unsuccessfully deleted from file.')
 
 
         # (D) Display the file with all records
@@ -152,12 +179,13 @@ def main():
             # print/display all records
             displayRecords(name, score)
 
+            # assign return bool from function to 'found' as var
             found = displayRecords(name, score)
 
             if found != True:
-                print('Record unsuccessfully displayed from file.')
+                print('\nRecord unsuccessfully displayed from file.')
             else:
-                print('Record was successfully displayed from file.')
+                print('\nRecord was successfully displayed from file.')
 
 
         # (Q) Quit the program
@@ -200,7 +228,7 @@ def displayRecords(name, score):
     found = False
 
     # title info
-    print('Golfers Records:\n')
+    print('\nGolfers Records:\n')
 
     # call function to load records
     loadRecords(name, score)
@@ -210,7 +238,7 @@ def displayRecords(name, score):
         print("Golfer's Name: ", name, "\t\tGolfer's Score: ", score)
         found = True
 
-    # If search value was not found in file, return False
+    # if search value was not found in file, return False
     if found:
         return True
     else:
@@ -231,36 +259,28 @@ def lookUpRecords(name, score, searchName):
     # determine if 'name' was found or not; '0' is the value returned from
     # records.get(variable, 0)
     if search != 0:
-        print('Name found in Records.')
         found = True
-    else:
-        print('Name not found in Records.')
 
-    # If search value was not found in file, return False
+    # If searchName was not found in file, return False
     if found:
         return True
     else:
         return False
 
 # add records to file--use other functions to build
-def addRecords(name, score, searchName):
+def addRecords(name, score, searchName, newScore):
     # first; open in 'a' mode to add information
     infile = open("Golfers.txt", "a")
 
     # use the name the user inputed in main to add to file
     name = searchName
     # make sure the score is entered as 'int'
-    score = int(input("Enter the golfer's score:\n--> "))
-
-    # validate user input for ints between 1-150
-    if score <= 1 or score >= 150:
-        score = int(input('\nEnter a number between 1-150: \t--> '))
+    score = newScore
 
     # append to the file
-    print('Writing to file...\n...\n...\n...')
+    print('Writing to file...\n...\n...\n...\nPlease wait.')
     infile.write(name + '\n')
     infile.write(str(score) + '\n')
-    print('File successfully written.')
 
 def removeRecords(name, score, searchName):
     # create bool var to use as flag
@@ -288,8 +308,6 @@ def removeRecords(name, score, searchName):
 
         # search determins if user input is written to Golfer's file, or temp
         if name == searchName:
-            # reset dictionary
-            # records.clear()
             # set found flag to true
             found = True
         else:
@@ -374,12 +392,12 @@ def changeRecords(name, score, searchName, newScore):
 
 # function to print the menu
 def getMenu():
-    print('Please make a selection from the Menu below:\
+    print('\nPlease make a selection from the Menu below:\n \
           \n\t(C) make a Change to one of the records\
           \n\t(A) Add a record to the file\
           \n\t(R) Remove a record from the file\
           \n\t(D) Display the file with all records\
-          \n\t(Q) Quit the program')
+          \n\t(Q) Quit the program\n')
 
 # call the main function
 main()
