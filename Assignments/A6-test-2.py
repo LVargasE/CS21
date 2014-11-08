@@ -51,69 +51,40 @@ def displayRecords(name, score):
     for (name, score) in records.items():
         print("Golfer's Name: ", name, "\t\tGolfer's Score: ", score)
 
-def lookUpRecords(found, name, score, searchName):
+def lookUpRecords(name, score, searchName):
 
-    found = False
+    loadRecords(name, score)
 
-    while found != True:
+    search = records.get(searchName, 0)
 
-        loadRecords(name, score)
+    if search != 0:
+        print('Name found in Records.')
+        return True
+    else:
+        print('Name not found in Records.')
+        return False
 
-        if searchName in records:
+    return searchName
 
-            print('Name found')
-            found = True
-        else:
 
-            searchName = input("\nGolfer not found in file.\
-                                \nEnter golfer's full name,\
-                                \ne.g., Tiger Woods, below:\
-                                \n\t--> ")
+def addRecords(name, score, searchName):
 
-        return found, searchName
+    infile = open("Golfers.txt", "a")
 
-def addRecords(found, name, score, searchName):
+    name = searchName
+    score = int(input("Enter the golfer's score:\n--> "))
 
-    # use bool var as flag
-    found = False
+    # append to the file
+    print('Writing to file...\n...\n...\n...')
+    infile.write(name + '\n')
+    infile.write(str(score) + '\n')
+    print('File successfully written.')
 
-    while found != True:
-
-        # next --> need to load file to set up search
-        loadRecords(name, score)
-
-        # then --> search user input to make sure we're not adding duplicate records
-        if searchName in records:
-
-            print("Error; name already exists in records.")
-            found = True
-
-        else:
-
-            infile = open("Golfers.txt", "a")
-
-            name = searchName
-            score = int(input("Enter the golfer's score:\n--> "))
-
-            if score <= 1 or score >= 150:
-                try:
-                    score = int(input("Enter the golfer's score:\n--> "))
-                    print("You entered: ", score)
-                except ValueError:
-                    print("That was not a number.")
-
-            # append to the file
-            infile.write(name + '\n')
-            infile.write(str(score) + '\n')
-            found = False
-
-    return found
-
-def removeRecords(var):
+def removeRecords():
     pass
 
 
-def saveRecords(var):
+def saveRecords():
     pass
 
 
@@ -131,7 +102,7 @@ def main():
 
     # local variables
     choice = ''
-    found = ''
+    found = False
     name = ''
     score = ''
 
@@ -146,24 +117,33 @@ def main():
     # lookUpRecords(found, name, score, searchName)
 
     # add to record
-    print("\nyou are going to add a record")
+    print("\nYou are going to add a record")
 
     searchName = input('\nPlease enter the name of the golfer \
                         \nyou would like to add to the record. \
                         \n\ne.g., Tiger Woods (given name, surname). \
                         \n\n--> ')
 
-    addRecords(found, name, score, searchName)
+    lookUpRecords(name, score, searchName)
+    print(type(found))
+    print(found)
 
-    while found == False:
+    found = lookUpRecords(name, score, searchName)
 
-        print('Record sucessfully added to file')
-
+    if found == True:
+        print('Name already exists in Records; cannot write to file.')
     else:
+        addRecords(name, score, searchName)
 
-        print("didn't work")
+        lookUpRecords(name, score, searchName)
 
-
-
+        found = lookUpRecords(name, score, searchName)
+        print(searchName)
+        print(type(found))
+        print(found)
+        if found != True:
+            print('Record unsuccessfully added to file.')
+        else:
+            print('Record was successfully added to file.')
 
 main()
