@@ -3,11 +3,6 @@ A7 -- World Series Champions
 
 To-Do:
 
-  * Create a value-returning function named readData() that will use a
-    try/except statement to read in the data from the file named above, remove
-    the end line characters, and put all of the winners in a list.  Check for
-    an IOError.  Return the list to the main.
-
   * Create a value-returning function named noDuplicates( winners ) that
     receives the list of winners and creates a new list of non-duplicate
     winners.  This can be done by going through the list of winners and
@@ -56,33 +51,53 @@ To-Do:
 
 main()
 readData()
-noDuplicates( winners )
-numberWins( winners, winnersND )
-createFileNoDuplicates( NoDupTuple, winsTuple )
+noDuplicates(winners)
+numberWins(winners, winnersND)
+createFileNoDuplicates(NoDupTuple, winsTuple)
 """
 def main():
-    winners = []
-    readData(winners)
-    print(winners)
+    winners = readData()
+    #print(winners)
+    noDuplicates(winners)
+    winnersND = winners
+    readData()
+    print(winnersND)
 
-
-def readData(linelist):
+# read the data from .txt file and pass it to main() as list without '\n'
+def readData():
+    # in case of an IOError; use try, except, else
     try:
-        # open the text document and assign to 'infile'
-        infile = open("WorldSeriesWinners.txt", "r")
+        # open file to read assigned to 'infile'
+        infile = open('WorldSeriesWinners.txt', 'r')
+    # unless there's an IOError; then print message
     except IOError:
-        print('an error occurred trying to read the file.')
-        
-    aline = infile.readlines()
-        
-    while aline:
-        aline = infile.readline()
-        aline = aline.rstrip('\n')
-        linelist.append(aline)
+        print('Something happenned when trying to read the file!')
+    # if everything was read without an error, remove new line from strings
+    else:
+        # variable that represents list from file
+        alist = infile.readlines()
+        # close the file
+        infile.close()
+    # use an accumulator pattern + loop to remove '\n' from strings    
+    index = 0
+    # so long as the accumulated number is less than the len of the list -->
+    while index < len(alist):
+        # as the slice number changes, it moves through the list removing '\n'
+        alist[index] = alist[index].rstrip('\n')
+        # accumulator
+        index += 1
+    # return the list to main()
+    return alist
 
-    # close file
-    infile.close()
-    print(linelist)
-    return linelist
-
+def noDuplicates(thelist):
+    found = {}
+    index = 0
+    for item in thelist:
+        if item not in found:
+            found[item] = True
+            thelist[index] = item
+            index += 1
+    del thelist[index:]
+    
+# excecute the main() function !
 main()
