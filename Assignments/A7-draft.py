@@ -61,35 +61,28 @@ numberWins( winners, winnersND )
 createFileNoDuplicates( NoDupTuple, winsTuple )
 """
 def main():
-    winnersList = []
-    winners = ''
-    index = 0
+    winners = []
     readData(winners)
     print(winners)
 
 
-def readData():
-    # open the text document and assign to 'infile'
-    infile = open("WorldSeriesWinners.txt", "r")
-
-    # read the first line of Golfers' 'name' field
-    k = infile.readline()
-
-    # read rest of file (separating 'name', or 'k', from 'score', or, 'v')
-    while k != '':
-
-        # strip the '\n' from 'line'
-        k = k.rstrip('\n')
-
-        # send name of team to winner's list
-        winnersList = [k]
-
-        # read next name and iterate until empty line is reached
-        k = infile.readline()
+def readData(linelist):
+    try:
+        # open the text document and assign to 'infile'
+        infile = open("WorldSeriesWinners.txt", "r")
+    except IOError:
+        print('an error occurred trying to read the file.')
+        
+    aline = infile.readlines()
+        
+    while aline:
+        aline = infile.readline()
+        aline = aline.rstrip('\n')
+        linelist.append(aline)
 
     # close file
     infile.close()
-
-    return winnersList
+    print(linelist)
+    return linelist
 
 main()
