@@ -54,4 +54,42 @@ To-Do:
     this time, include the WorldSeriesWinnersND.txt file as a second file
     submission.
 
+main()
+readData()
+noDuplicates( winners )
+numberWins( winners, winnersND )
+createFileNoDuplicates( NoDupTuple, winsTuple )
 """
+def main():
+    winnersList = []
+    winners = ''
+    index = 0
+    readData(winners)
+    print(winners)
+
+
+def readData():
+    # open the text document and assign to 'infile'
+    infile = open("WorldSeriesWinners.txt", "r")
+
+    # read the first line of Golfers' 'name' field
+    k = infile.readline()
+
+    # read rest of file (separating 'name', or 'k', from 'score', or, 'v')
+    while k != '':
+
+        # strip the '\n' from 'line'
+        k = k.rstrip('\n')
+
+        # send name of team to winner's list
+        winnersList = [k]
+
+        # read next name and iterate until empty line is reached
+        k = infile.readline()
+
+    # close file
+    infile.close()
+
+    return winnersList
+
+main()
