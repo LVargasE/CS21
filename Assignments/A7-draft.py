@@ -51,7 +51,8 @@ def main():
     winners = readData()
     #print(winners)
     winnersND = noDuplicates(winners)
-    print(winnersND)
+    #print(winnersND)
+    numberWins(winners, winnersND)
     
 
 # read the data from .txt file and pass it to main() as list without '\n'
@@ -80,6 +81,7 @@ def readData():
     # return the list to main()
     return alist
 
+# ...
 def noDuplicates(thelist):
     # use blank dictionary to store found values from list
     found = {}
@@ -101,6 +103,10 @@ def noDuplicates(thelist):
     thelist = tuple(thelist)
     # return tuple-ized list
     return thelist
+ 
+# ...   
+def numberWins(k_winners, v_winnersND):
+    
     
 # excecute the main() function !
 main()
