@@ -3,21 +3,13 @@ A7 -- World Series Champions
 
 To-Do:
 
-  * Create a value-returning function named noDuplicates( winners ) that
-    receives the list of winners and creates a new list of non-duplicate
-    winners.  This can be done by going through the list of winners and
-    appending a team to the new list every time it does NOT appear in the new
-    list so far.  Use the combination of For and If to do this.  After the new
-    list of non-duplicate winners is created, convert it to a tuple so that it
-    cannot be changed any time later.  Next return the tuple to the main.
-
   * Create a value-returning function named numberWins( winners, winnersND )
     that receives the list of winners and the tuple of non-duplcated winners
     (winnersND). Create a new list that will hold the number of wins for each
     team in the winnersND tuple.  (The wins list indexes should match the
     winnersND indexes, meaning that index 3 of the winnersND tuple should have
     the number of wins in the index 3 of the wins list.)
-  * Use a combination of nested For loops and If's to do this.  After the new
+    Use a combination of nested For loops and If's to do this.  After the new
     list of wins is created, convert it to a tuple so that it cannot be changed
     any time later.  Next return the tuple to the main.
 
@@ -58,10 +50,9 @@ createFileNoDuplicates(NoDupTuple, winsTuple)
 def main():
     winners = readData()
     #print(winners)
-    noDuplicates(winners)
-    winnersND = winners
-    readData()
+    winnersND = noDuplicates(winners)
     print(winnersND)
+    
 
 # read the data from .txt file and pass it to main() as list without '\n'
 def readData():
@@ -78,7 +69,7 @@ def readData():
         alist = infile.readlines()
         # close the file
         infile.close()
-    # use an accumulator pattern + loop to remove '\n' from strings    
+    # use an accumulator pattern + while loop to remove '\n' from strings    
     index = 0
     # so long as the accumulated number is less than the len of the list -->
     while index < len(alist):
@@ -90,14 +81,26 @@ def readData():
     return alist
 
 def noDuplicates(thelist):
+    # use blank dictionary to store found values from list
     found = {}
+    # use an accumulator pattern + for--> if loop to remove duplicates
     index = 0
+    # for every iteration of an element in thelist --> if not already found,
+    # delete element at its indexed number (arrived at through the 
+    # accumulator pattern with variable 'index')
     for item in thelist:
         if item not in found:
             found[item] = True
             thelist[index] = item
+            # accumulator
             index += 1
+    # delete element from list
     del thelist[index:]
+    
+    # convert list to tuple
+    thelist = tuple(thelist)
+    # return tuple-ized list
+    return thelist
     
 # excecute the main() function !
 main()
