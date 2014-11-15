@@ -47,11 +47,12 @@ noDuplicates(winners)
 numberWins(winners, winnersND)
 createFileNoDuplicates(NoDupTuple, winsTuple)
 """
+
 def main():
     winners = readData()
     #print(winners)
     winnersND = noDuplicates(winners)
-    #print(winnersND)
+    #print(winnersND)  
     numberWins(winners, winnersND)
     
 
@@ -82,30 +83,42 @@ def readData():
     return alist
 
 # ...
-def noDuplicates(thelist):
+def noDuplicates(theList):
     # use blank dictionary to store found values from list
     found = {}
     # use an accumulator pattern + for--> if loop to remove duplicates
     index = 0
-    # for every iteration of an element in thelist --> if not already found,
+    # for every iteration of an element in theList --> if not already found,
     # delete element at its indexed number (arrived at through the 
     # accumulator pattern with variable 'index')
-    for item in thelist:
+    for item in theList:
         if item not in found:
             found[item] = True
-            thelist[index] = item
+            theList[index] = item
             # accumulator
             index += 1
     # delete element from list
-    del thelist[index:]
+    del theList[index:]
     
     # convert list to tuple
-    thelist = tuple(thelist)
+    theList = tuple(theList)
     # return tuple-ized list
-    return thelist
+    return theList
  
 # ...   
-def numberWins(k_winners, v_winnersND):
+def numberWins(theList, theTuple):
+    # ...
+    theList = readData()    
+    index = 0
+    winnersList = []
+    winnersListND = []
+    for item in theList:
+        counter = theList.count(item)
+        winnersList.append(counter)
+        winnersList[index] = str(counter) + ' ' + item
+        index += 1
+    
+    print(winnersList)
     
     
 # excecute the main() function !
