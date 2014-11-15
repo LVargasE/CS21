@@ -3,32 +3,6 @@ A7 -- World Series Champions
 
 To-Do:
 
-  * Create a value-returning function named numberWins( winners, winnersND )
-    that receives the list of winners and the tuple of non-duplcated winners
-    (winnersND). Create a new list that will hold the number of wins for each
-    team in the winnersND tuple.  (The wins list indexes should match the
-    winnersND indexes, meaning that index 3 of the winnersND tuple should have
-    the number of wins in the index 3 of the wins list.)
-    Use a combination of nested For loops and If's to do this.  After the new
-    list of wins is created, convert it to a tuple so that it cannot be changed
-    any time later.  Next return the tuple to the main.
-
-  * Create a function named createFileNoDuplicates( noDupTuple, winsTuple )
-    that receives the two above created tuples and prints them out to a file.
-    Each line of the file should have the number of wins for a team, a tab, and
-    then the name of the team.  The file should be called
-    WorldSeriesWinnersND.txt and its writing should be inside of a try/except
-    block that will catch an IOError.  Be sure to close the file after you are
-    done writing.  It may look like the program will work without it but the
-    file does not always close properly with you doing it explicitly.  Not
-    doing so will result in a loss of points.
-
-  * The main() should call readData(), noDuplicates( winners ), and
-    numberWins( winners, winnersND ).  Then attempt to append something to the
-    wins tuple and print out the error that is caught using a try/except block.
-    Then call createFileNoDuplicates( NoDupTuple, winsTuple )  to print the new
-    file.  Now print to the screen the same list that was just saved to the
-    file.
   * As a last item for the main() use List Slicing to print out each team that
     won the World Series in each election year starting in 1908 and continuing
     to 1992 using the original winners list.  (hint: 1) Don't forget that there
@@ -51,9 +25,42 @@ createFileNoDuplicates(NoDupTuple, winsTuple)
 def main():
     winners = readData()
     #print(winners)
-    winnersND = noDuplicates(winners)
+    noDuplicates(winners)
     #print(winnersND)  
-    numberWins(winners, winnersND)
+    numberWins()
+    winsTuple = numberWins()
+    # print(winsTuple)
+    # pretend append tuple
+    try:
+        winsTuple.append()
+    except AttributeError: 
+        print('Tuples cannot be changed--error')
+    
+    createFileNoDuplicates(winsTuple)
+    # Print all winners from US Presidential Election Years
+    print('\nWins on US Presidental Elections')
+    # Reload winners data
+    winners = readData()
+    # use index to control for loop
+    index = 0
+    # if the index matches the years already determined to be election years,
+    # print that item
+    for item in winners:
+        # accumulator 
+        index += 1
+        # index slice of all the presidental election years
+        if index == 5 or index == 9 or index == 13 or index == 17 \
+            or index == 21 or index == 25 or index == 29 or index == 33 \
+            or index == 37 or index == 41 or index == 45 or index == 49 \
+            or index == 53 or index == 57 or index == 61 or index == 65 \
+            or index == 69 or index == 73 or index == 77 or index == 81 \
+            or index == 85 or index == 89:
+                print(item)
+    
+    
+    
+    
+    
     
 
 # read the data from .txt file and pass it to main() as list without '\n'
@@ -105,21 +112,42 @@ def noDuplicates(theList):
     # return tuple-ized list
     return theList
  
-# ...   
-def numberWins(theList, theTuple):
+# calculate number of wins   
+def numberWins():
     # ...
     theList = readData()    
     index = 0
     winnersList = []
-    winnersListND = []
     for item in theList:
         counter = theList.count(item)
         winnersList.append(counter)
-        winnersList[index] = str(counter) + ' ' + item
+        winnersList[index] = str(counter) + '\t' + item
         index += 1
     
+    noDuplicates(winnersList)
     print(winnersList)
+    winnersList = tuple(winnersList)
+    return winnersList
     
+def createFileNoDuplicates(aTuple):
+    # 
+    index = 0
+    outfile = open("WorldSeriesWinnersND.txt", "w")
+    try:
+        for item in aTuple:
+            #
+            outfile.write(item + '\n')
+            #
+            index += 1
+    except IOError:
+        print("Something happenned when trying to write to the file!")
+    finally:
+        outfile.close()
+    print('\nThe following is data you have saved to the file:\n')
+    index = 0
+    for item in aTuple:
+        print(item)
+        index += 1
     
 # excecute the main() function !
 main()
