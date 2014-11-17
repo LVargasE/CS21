@@ -19,7 +19,7 @@ The Program Spec
 
     Input function
 
-    getString()
+ -->getString()
 
     This function requests a string from the user and converts it to a list to
     be able to see how many words were entered.  Use a validation loop to get the
@@ -29,7 +29,7 @@ The Program Spec
 
     Processing functions
 
-    pigLatin( targetList )
+ -->pigLatin( targetList )
 
     This function will receive the list of words as an argument and returns a
     new string that has moved the first letter to the end and added "ay" to each
@@ -37,7 +37,7 @@ The Program Spec
     consistency.  Consider slicing the word to get certain parts and then create
     the new string.
 
-    turkeyIrish( targetList )
+ -->turkeyIrish( targetList )
 
     This function will receive the list of words as an argument and returns a
     new string that has "ab" added before each vowel in each word. Start by making
@@ -45,7 +45,7 @@ The Program Spec
     'o', 'u') in the words.  Think about how look at each letter and then add
     to the new string.
 
-    countVowels( targetList )
+ -->countVowels( targetList )
 
     This function will receive the list of words as an argument and returns the
     number of vowels that appear in the list of words.  Check for 'a', 'e', 'i',
@@ -56,5 +56,89 @@ The Program Spec
 
     Whenever the user makes an input error, keep at them until they get it right.
     Do not allow them out of the validation loop until you have acquired a legal
-    value, even if it takes years . . .
+    value, even if it takes years
+    
+Use the following functions:
+    main()
+    getString()
+    pigLatin( targetList )
+    turkeyIrish( targetList )
+    countVowels( targetList )
+    
 """
+def main():
+    # local variables
+    ...
+    
+    print("Change a few words into Pig Latin, Turkey Irish, and count \
+           all vowels in a sentance of your choosing with Python!")
+
+    while choice != 'n' or 'no':
+        # find out if user wants to continue; plan for user errors
+        choice = str(input('\nCONTINUE?\n\
+          \n\t--> ')).lower()
+        # remind user to enter a valid selection
+        try:
+            choice = str(input('\nPlease only enter letters; either 'Y', \
+                                    or 'Yes' to continue; 'N', or, 'No'\
+                                    to quit.\n\t--> ')).lower()
+        # if user enters anything other than a string    
+        except ValueError:
+            choice = str(input('\nThat was not a valid entry.\
+                                    Please only enter letters; either 'Y', \
+                                    or 'Yes' to continue; 'N', or, 'No'\
+                                    to quit.\n\t--> ')).lower()
+        
+        # get string from user using the function below:
+        getString()                
+        
+        # assign returned value of function to a variable
+        targetList = getString()
+        
+        # Quit the program
+        elif choice == 'n' or 'no':
+            print('Goodbye.')
+
+def getString():
+    # local variables
+    spaces = ''
+    
+    # ask the user to enter a string
+    aString = str(input('\nNEW WORD SET\n \
+                          Enter a sentance below. \
+                          (Please note that sentances must contain at least\
+                          three words). \
+                          \n\tEnter string here:\t--> ')).lower()
+"""    
+    try:
+        for spaces in aString:
+            if spaces in aString:
+                
+        aString = str(input('\n\n \
+                          Enter a sentance below. \
+                          (Please note that sentances must contain at least\
+                          three words). \
+                          \n\tEnter string here:\t--> ')).lower()
+    except ValueError:
+        aString = str(input('\nNEW WORD SET\n \
+                          Enter a sentance below. \
+                          (Please note that sentances must contain at least\
+                          three words). \
+                          \n\tEnter string here:\t--> ')).lower()
+"""
+def pigLatin():
+    ...
+
+def turkeyIrish(targetList):
+    ...
+
+def countVouwels(targetList):
+    # list of vowels to look for
+    vowels = "aeiou"
+    noVowels = ""
+    for eachWord in targetList:
+        if eachWord in vowels:
+            noVowels = noVowels + eachWord
+    return noVowels
+    
+          
