@@ -68,40 +68,45 @@ Use the following functions:
 """
 def main():
     # local variables
-    ...
+    choice = 'y'
+    
     
     print("Change a few words into Pig Latin, Turkey Irish, and count \
            all vowels in a sentance of your choosing with Python!")
-
-    while choice != 'n' or 'no':
-        # find out if user wants to continue; plan for user errors
-        choice = str(input('\nCONTINUE?\n\
-          \n\t--> ')).lower()
-        # remind user to enter a valid selection
-        try:
-            choice = str(input('\nPlease only enter letters; either 'Y', \
-                                    or 'Yes' to continue; 'N', or, 'No'\
-                                    to quit.\n\t--> ')).lower()
-        # if user enters anything other than a string    
-        except ValueError:
-            choice = str(input('\nThat was not a valid entry.\
-                                    Please only enter letters; either 'Y', \
-                                    or 'Yes' to continue; 'N', or, 'No'\
-                                    to quit.\n\t--> ')).lower()
+                      
+    #                
+    while choice == 'y':    
         
         # get string from user using the function below:
         getString()                
         
         # assign returned value of function to a variable
         targetList = getString()
+    
+        try:
+            #
+            choice = str(input('\nCONTINUE?\n"Y" or "N"\
+                                \n\t--> ')).lower()
+            if choice != 'y' or 'n':
+                #
+                choice = str(input('\nTry Again--Please enter "Y" or, \
+                                    "N"\n\t--> ')).lower()
+                                    
+        # if user enters anything other than a string    
+        except ValueError:
+            #
+            choice = str(input('\nThat was not a valid entry.\
+                                Please enter "Y" or "Yes"; or, \
+                                "N" or "No"\n\t--> ')).lower()
+        else:
+            # Quit the program
+            if choice == 'n' or 'no':
+                print('Goodbye.') 
         
-        # Quit the program
-        elif choice == 'n' or 'no':
-            print('Goodbye.')
 
 def getString():
     # local variables
-    spaces = ''
+    threeWords = False
     
     # ask the user to enter a string
     aString = str(input('\nNEW WORD SET\n \
@@ -109,29 +114,28 @@ def getString():
                           (Please note that sentances must contain at least\
                           three words). \
                           \n\tEnter string here:\t--> ')).lower()
-"""    
-    try:
-        for spaces in aString:
-            if spaces in aString:
-                
-        aString = str(input('\n\n \
-                          Enter a sentance below. \
-                          (Please note that sentances must contain at least\
-                          three words). \
-                          \n\tEnter string here:\t--> ')).lower()
-    except ValueError:
-        aString = str(input('\nNEW WORD SET\n \
-                          Enter a sentance below. \
-                          (Please note that sentances must contain at least\
-                          three words). \
-                          \n\tEnter string here:\t--> ')).lower()
-"""
+    
+    while threeWords != False:
+        if aString.find(" ") >= 3:
+            threeWords = True
+        else:
+            aString = str(input('\nSENTENCE MUST CONTAIN AT LEAST THREE WORDS\
+                                 \n\tEnter string here:\t--> ')).lower()
+    
+    # use split method to convert string into a separated list
+    splitString = aString.split()
+                                  
+    return splitString
+
+#
 def pigLatin():
     ...
 
+#
 def turkeyIrish(targetList):
     ...
 
+#
 def countVouwels(targetList):
     # list of vowels to look for
     vowels = "aeiou"
@@ -140,5 +144,6 @@ def countVouwels(targetList):
         if eachWord in vowels:
             noVowels = noVowels + eachWord
     return noVowels
-    
-          
+
+# call the main function    
+main()          
