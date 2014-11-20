@@ -68,36 +68,17 @@ Use the following functions:
 """
 def main():
     # local variables
-    keepGoing = True
     
     print("/nChange a few words into Pig Latin, Turkey Irish, and count \
            all vowels in a sentance of your choosing with Python!")
-                      
-    # use while loop to keep user engaged in program unless they choose 
-    #   to quit
-    while keepGoing == True:        
-        # get string from user using the function below:
-        getString()                
-        
-        # assign returned value of function to a variable
-        targetList = getString()
-        
-        print('targetList')
-    
-        # does user want to keepGoing? Yes or No.
-        choice = str(input('\nKeep Going?  "Y" or "N" \n--> ')).lower()
-        
-        # if user chooses 'No', exit program; set keepGoing to False                             
-        if choice == 'n':
-            keepGoing = False
+           
+    # test the string to list code
+    targetList = getString()
+    print(getString)
+    # test the list to vouwel count code
+    vouwelsNumber = countVouwels(targetList)   
+    print(vouwelsNumber)
 
-        while choice not in ['y', 'n']:
-            choice = str(input('\nTry Again--Please enter "Y" or, \
-                               "N"\n--> ')).lower()
-            
-                                    
-    # exit program    
-    print('Quitting the program.\nGoodbye!')
         
 
 def getString():
@@ -110,11 +91,10 @@ def getString():
                           three words). \
                           \nEnter string here:--> ')).lower()
     
-    
-    if aString.find(" ") >= 3:
-        print('worked in the if section', aString)
-    else:
-        while aLoop == True:
+    while aLoop == True:
+        if aString.find(' ') >= 3:
+            aLoop = False
+        else:
             aString = str(input('\nSENTENCE MUST CONTAIN AT LEAST THREE WORDS\
                                  \n\tEnter string here:\t--> ')).lower()
     
