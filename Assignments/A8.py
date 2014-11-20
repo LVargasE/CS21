@@ -68,45 +68,63 @@ Use the following functions:
 """
 def main():
     # local variables
+    ans = 'yes'
     
-    print("/nChange a few words into Pig Latin, Turkey Irish, and count \
-           all vowels in a sentance of your choosing with Python!")
+    print('/nChange a few words into Pig Latin, Turkey Irish, and count \
+           all vowels in a sentance of your choosing with Python!')
            
-    # test the string to list code
-    targetList = getString()
-    print(getString)
-    # test the list to vouwel count code
-    vouwelsNumber = countVouwels(targetList)   
-    print(vouwelsNumber)
+    while ans == 'y' or ans == 'yes':      
+        # test the string to list code
+        targetList = getString()
+        print(getString)
+        # test the list to vouwel count code
+        vouwelsNumber = countVouwels(targetList)   
+        print(vouwelsNumber)
+        
+        ans = str(input('Would you like to translate another \
+                        sentence?\n--> ')).lower()
 
         
 
 def getString():
     # local variables
-    aLoop = True
+    flag = False
     
-    # ask the user to enter a string
-    aString = str(input('\nNEW WORD SET\nEnter a sentance below. \
-                          (Please note that sentances must contain at least\
-                          three words). \
-                          \nEnter string here:--> ')).lower()
-    
-    while aLoop == True:
-        if aString.find(' ') >= 3:
-            aLoop = False
+    while flag != True:
+        # ask the user to enter a string
+        aString = str(input('\nNEW WORD SET\nEnter a sentance below. \
+                              (Please note that sentances must contain at least\
+                              three words). \
+                              \nEnter string here:--> ')).lower()
+     
+        # use split method to convert string into a separated list
+        splitString = aString.split()
+        
+        if len(splitString) >= 3:
+            # return the value as a list                             
+            flag = True
         else:
-            aString = str(input('\nSENTENCE MUST CONTAIN AT LEAST THREE WORDS\
-                                 \n\tEnter string here:\t--> ')).lower()
+            #
+            print('\nSENTENCE MUST CONTAIN AT LEAST THREE WORDS')
     
-    # use split method to convert string into a separated list
-    splitString = aString.split()
-                                  
     return splitString
-
+    
 #
-def pigLatin():
-    ...
-
+def pigLatin(aList):
+    index = 0
+    vowels = "aeiou"
+    aString = ' '.join(aList)
+    while index < len(aString) and (not aString[index] in vowels):
+        index += 1
+    
+    if index == 0:
+        print(aString + 'ay')
+    elif index < len(aString):
+        print(aString[index:] + aString[:index] + 'ay')
+    else:
+        print(aString)
+    return aString
+        
 #
 def turkeyIrish(targetList):
     ...
