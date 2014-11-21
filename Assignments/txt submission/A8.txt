@@ -3,16 +3,16 @@ A8--Word Games
 
 --> Change user input string into Pig latin and Turkey Irish
 --> Display number of vowels in user input string
-   
+
 """
 def main():
     # local variables
     endProgram = 0
-    
+
     print('/nChange a few words into Pig Latin, Turkey Irish, and count \
            all vowels in a sentence of your choosing with Python!')
-           
-    while endProgram != 1:      
+
+    while endProgram != 1:
         # call getString function + assign to targetList variable
         targetList = getString()
         # call pigLatin; pass targetList + return string to new variable
@@ -22,9 +22,9 @@ def main():
         turkeyIrishTranslation = turkeyIrish(targetList)
         print('\nTurkey Irish: ', turkeyIrishTranslation)
         # test the list to vowel count code
-        vowelsNumber = countvowels(targetList)   
+        vowelsNumber = countvowels(targetList)
         print('\nNumber of vowels', vowelsNumber)
-        
+
         ans = str(input("\nWould you like to translate another \
                          sentence? ('Y' or 'N')\n--> ")).lower()
         try:
@@ -49,20 +49,20 @@ def getString():
                              \n(Please note that sentences must contain at \
                              \nleast three words). \
                              \nEnter string here:--> ')).lower()
-     
+
         # use split method to convert string into a separated list
         splitString = aString.split()
-        
+
         if len(splitString) >= 3:
-            # return the value as a list                             
+            # return the value as a list
             flag = True
         else:
             # remind user that their sentence must contain at least 3 words!
             print('\nSENTENCE MUST CONTAIN AT LEAST THREE WORDS')
-    
+
     # return the list to main()
     return splitString
-    
+
 # conver list to pigLatin and return to main as string
 def pigLatin(aList):
     pigList = aList[:]
@@ -70,10 +70,10 @@ def pigLatin(aList):
     for index in range(len(pigList)):
         word = pigList[index]
         pigList[index] = word[1:] + word[0:1] + 'ay'
-    
+
     # return translation as string
     return ' '.join(pigList)
-        
+
 # add 'ab' before each vowel
 def turkeyIrish(aList):
     turkeyList = aList[:]
@@ -85,16 +85,16 @@ def turkeyIrish(aList):
         eachWord = turkeyList[index]
         for letter in eachWord:
             if letter in vowels:
-                # replace the letter with 'ab' then add the letter back 
+                # replace the letter with 'ab' then add the letter back
                 eachWord = eachWord.replace(letter, 'ab' + letter)
             # replaces the old word with the new word
             turkeyList[i] = eachWord
         # accumulator for int
         i += 1
-    
-    # returns the translation as a string        
+
+    # returns the translation as a string
     return ' '.join(turkeyList)
-                
+
 # count the vowels and return number to main
 def countvowels(aList):
     # list of vowels to look for
@@ -105,9 +105,98 @@ def countvowels(aList):
     for eachWord in aString:
         if eachWord in vowels:
             vowelsFromString = vowelsFromString + eachWord
-            
+
     # return the number of vowels to main
     return len(vowelsFromString)
 
-# call the main function    
-main()          
+# call the main function
+main()
+
+------------ OUTPUT ------------
+Python 3.4.1 |Anaconda 2.0.1 (64-bit)| (default, Jun 11 2014, 17:27:11) [MSC v.1600 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> runfile('C:/Users/robert.mitchell/Documents/GitHub/CS21A/Assignments/A8.py', wdir=r'C:/Users/robert.mitchell/Documents/GitHub/CS21A/Assignments')
+
+Change a few words into Pig Latin, Turkey Irish, and count
+all vowels in a sentence of your choosing with Python!
+
+NEW WORD SET
+Enter a sentence below.
+(Please note that sentences must contain at
+least three words).
+Enter string here:--> Genius needs
+
+SENTENCE MUST CONTAIN AT LEAST THREE WORDS
+
+NEW WORD SET
+Enter a sentence below.
+(Please note that sentences must contain at
+least three words).
+Enter string here:--> Genius needs the curb as often as the spur
+
+Pig Latin:  eniusgay eedsnay hetay urbcay saay ftenoay saay hetay pursay
+
+Turkey Irish:  gabenabiabus nababeababeds thabe caburb abas aboftaben abas thabe spabur
+
+Number of vowels 13
+
+Would you like to translate another
+sentence? ('Y' or 'N')
+--> yeah
+
+Please enter 'Y', or, 'Yes' to continue;
+'N', or, 'No' to quit.
+--> yes
+
+NEW WORD SET
+Enter a sentence below.
+(Please note that sentences must contain at
+least three words).
+Enter string here:--> To miss a high aim is to fail without shame
+
+Pig Latin:  otay issmay aay ighhay imaay siay otay ailfay ithoutway hamesay
+
+Turkey Irish:  tabo mabiss aba habigh abaabim abis tabo fabaabil wabithaboabut shabamabe
+
+Number of vowels 15
+
+Would you like to translate another
+sentence? ('Y' or 'N')
+--> Y
+
+NEW WORD SET
+Enter a sentence below.
+(Please note that sentences must contain at
+least three words).
+Enter string here:--> Sublimity is the echo of a noble mind
+
+Pig Latin:  ublimitysay siay hetay choeay foay aay oblenay indmay
+
+Turkey Irish:  sabublababimababity abis thabe abechabo abof aba naboblabe mabind
+
+Number of vowels 12
+
+Would you like to translate another
+sentence? ('Y' or 'N')
+--> 1
+
+Please enter 'Y', or, 'Yes' to continue;
+'N', or, 'No' to quit.
+--> YES
+
+NEW WORD SET
+Enter a sentence below.
+(Please note that sentences must contain at
+least three words).
+Enter string here:--> Number is the ruler of forms and ideas and the cause of gods and daemons
+
+Pig Latin:  umbernay siay hetay ulerray foay ormsfay ndaay deasiay ndaay hetay ausecay foay odsgay ndaay aemonsday
+
+Turkey Irish:  nabumbaber abis thabe rabulaber abof faborms aband ababidababeabas aband thabe cabaabusabe abof gabods aband dabaabemabons
+
+Number of vowels 23
+
+Would you like to translate another
+sentence? ('Y' or 'N')
+--> no
+>>>
