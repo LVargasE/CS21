@@ -49,5 +49,49 @@ the team that won it and the number of times that they have won it.
 
 Be sure to include comments in your code.
 
-Create a run and include it as output with your program. As an exception this time, include the WorldSeriesWinnersND2.txt file as a second file submission.
+Create a run and include it as output with your program. As an exception this 
+time, include the WorldSeriesWinnersND2.txt file as a second file submission.
 """
+def main():
+    
+    winners = readData()
+    
+    makeDictionaries(winners)
+    
+def readData():
+    aList = []
+    
+    try:
+        # Open the file for reading
+        inputFile = open('WorldSeriesWinners2.txt', 'r')
+        # Read all the lines in file into a list
+        aList = inputFile.readlines()
+        # Strip trailing newline characters
+        for i in range(len(aList)):
+            aList[i] = aList[i].rstrip(" \n")
+
+        inputFile.close()
+        
+    # if there is an IOError, show it
+    except IOError:
+        print("The file could not be found")
+
+    # return the list to the main
+    return aList
+    
+def makeDictionaries(aList):
+    # has the year as the key and the team as the value
+    year = {}
+    # has the team as the key and the number of wins as the value
+    wins = {}
+    
+    for k in aList:
+        
+    
+    return year, wins
+    
+def noDuplicates(yearD):
+    ...
+    
+# call main function
+main()
