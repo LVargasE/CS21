@@ -1,21 +1,6 @@
 """
 The Program Spec:
 
-Use the same value-returning function as before named readData() that will use
-a try/except statement to read in the data from the file named above, remove
-the end line characters, and put all of the winners in a list.  Check for an
-IOError.  Return the list to the main.
-
-Next, design a function named makeDictionaries( winners ) that receives the
-list of winners and creates two Dictionaries, yearD and winsD. The first one
-has the year as the key and the team as the value.  The second will have the
-team as the key and the number of wins as the value.  Make sure that you do
-NOT put the years 1904 and 1994 in the Dictionary.  Start at the base year of
-1903 and use the combination of For and If to do this. The wins dictionary can
-be created in the same loop by checking to see if the team is in the wins
-dictionary already and updating the number of wins.  Next return both the
-yearD and winsD to the main at the same time (pg 224).
-
 Now we can move onto a function named noDuplicates( yearD ) that receives the
 dictionary with the years linked to teams and creates a set of winners that is
 by definition, non-duplcated.  Use the For loop for sets and add each one.
@@ -55,8 +40,14 @@ time, include the WorldSeriesWinnersND2.txt file as a second file submission.
 def main():
     
     winners = readData()
+    print(winners)
+    yearD, winsD = makeDictionaries(winners)
+    print(yearD)
+    print(winsD)
+    print(len(yearD))
+    print(len(winsD))
+    noDuplicates(yearD)
     
-    makeDictionaries(winners)
     
 def readData():
     aList = []
@@ -81,17 +72,36 @@ def readData():
     
 def makeDictionaries(aList):
     # has the year as the key and the team as the value
-    year = {}
+    yearD = {}
     # has the team as the key and the number of wins as the value
-    wins = {}
+    winsD = {}
+    yearIDX = 0
+    winsIDX = 0
     
-    for k in aList:
+    for year in range(1903, 2009):
+        if year == 1904 or year == 1994:
+            pass
+        else:
+            # add to dictionary
+            yearD[year] = aList[yearIDX]
+        yearIDX += 1
+    
+    for aTeam in aList:
+        aTeam = aList[winsIDX]
+        if 'Not Played' in aTeam:
+            pass
+        elif aTeam in winsD:
+            winsD[aTeam] = winsD[aTeam] + 1
+        else:
+            # add to dictionary       
+            winsD[aTeam] = 1
+        winsIDX += 1
         
+    # return both the years + wins dictionaries
+    return yearD, winsD
     
-    return year, wins
+def noDuplicates(aDict):
     
-def noDuplicates(yearD):
-    ...
     
 # call main function
 main()
