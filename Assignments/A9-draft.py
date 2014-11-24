@@ -101,6 +101,8 @@ def makeDictionaries(aList):
     return yearD, winsD
     
 def noDuplicates(aDict):
+    yearsSet = set()
+    
     
     
 # call main function
