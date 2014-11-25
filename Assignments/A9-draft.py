@@ -1,25 +1,6 @@
 """
 The Program Spec:
 
-Now we can move onto a function named noDuplicates( yearD ) that receives the
-dictionary with the years linked to teams and creates a set of winners that is
-by definition, non-duplcated.  Use the For loop for sets and add each one.
-Now just return it to the main.
-
-Create a function named createFileNoDuplicates( winsD ) that receives the
-dictionary with the teams linked to wins and Pickles the data so that it can
-be written out to the file WorldSeriesWinnersND2.txt in the binary format.
-Be sure to put the writing to the file in a try/except block that will catch
-an IOError.  Be sure to close the file after you are done writing.  It may
-look like the program will work without it but the file does not always close
-properly with you doing it explicitly.  Not doing so will result in a loss of
-points.
-
-The main() should call:
-  readData()
-  makeDictionaries( winners )
-  noDuplicates( yearD )
-
 Next print out the non-duplicated winners to the screen (remember that they
 could be in any order).  Then call createFileNoDuplicates( winsD ) to create
 the new file.
@@ -37,17 +18,45 @@ Be sure to include comments in your code.
 Create a run and include it as output with your program. As an exception this 
 time, include the WorldSeriesWinnersND2.txt file as a second file submission.
 """
+import pickle
 def main():
     
     winners = readData()
-    print(winners)
+    # print(winners)
     yearD, winsD = makeDictionaries(winners)
-    print(yearD)
-    print(winsD)
-    print(len(yearD))
-    print(len(winsD))
-    noDuplicates(yearD)
+    for aKey in winsD.keys():
+        print(aKey)
+    # print(yearD)
+    # print(winsD)
+    # print(len(yearD))
+    # print(len(winsD))
     
+    yearDictND = noDuplicates(yearD)
+    # print(yearDictND)
+    createFileNoDuplicates(winsD)
+    
+    flag = False
+    while flag != True:
+        try:
+            choice = int(input('Enter a year in the range 1903-2008: '))
+        except ValueError:
+            choice = int(input('Only numbers are accepted.\n \
+                                       Enter a year in the range 1903-2008: '))
+
+    if choice == 1904 or choice == 1994:
+        print('There was no World Series played that year')
+        flag = True
+    elif choice <= 1904 or choice >= 2008:
+        print('The data for year', choice, 'is not included in our database')
+    elif choice >= 1904 or choice <= 2008:
+        for (k, v) in yearDictND.items():
+            if choice in k:
+                print('The team that won the World Series in', choice, 'is the', \
+                         v, '.\nThey won', len(k), 'times.\n')
+                flag = True
+            else:
+                print('Your entry: ', choice, '; was not found in the records--an error \
+                         has occurred')
     
 def readData():
     aList = []
@@ -101,9 +110,31 @@ def makeDictionaries(aList):
     return yearD, winsD
     
 def noDuplicates(aDict):
-    yearsSet = set()
+    dictND = {}
     
+    for (aYear, aTeam) in aDict.items():
+        if aTeam in dictND:
+            dictND[aTeam] += [aYear]
+        else:
+            dictND[aTeam] = [aYear]
+            
+
+    return dictND
     
+def createFileNoDuplicates(aDict):
+    try:
+        # open the file forreading
+        outfile = open('WorldSeriesWinnersND2.txt', 'wb')
+        
+        # pickle the dictionary
+        pickle.dump(aDict, outfile)        
+        
+        # close the file
+        outfile.close()
+        
+    # if there is an IOError, show it
+    except IOError:
+        print("Something happenned while writing to file!")
     
 # call main function
 main()
