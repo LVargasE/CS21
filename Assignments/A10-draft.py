@@ -48,4 +48,40 @@ Create a run and include it as output with your program.
 Be sure to show that the validation works for the possible answers.
 
 """
+import csv
+
+with open('trivia.csv') as csvFile:
+    readCSV = csv.reader(csvFile, delimiter=',')
+    questionIndex = 0
+    
+    # columns
+    questionsColumn = [] 
+    Q1Column = []
+    Q2Column = []
+    Q3Column = []
+    Q4Column = []
+    answersColumn = []
+
+    
+    for row in readCSV:
+        question = row[0]
+        choiceOne = row[1]
+        choiceTwo = row[2]
+        choiceThree = row[3]
+        choiceFour = row[4]
+        answer = row[5]
+        
+        questionsColumn.append(question)
+        Q1Column.append(choiceOne)
+        Q2Column.append(choiceTwo)
+        Q3Column.append(choiceThree)
+        Q4Column.append(choiceFour)
+        answersColumn.append(answer)
+     
+print(questionsColumn)
+print(answersColumn)
+     
+  
+
+        
 
