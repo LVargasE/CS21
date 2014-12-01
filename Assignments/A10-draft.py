@@ -53,21 +53,19 @@ import random
 
 def main():
     # using a dictionary to obtain questions from a trivia question csv file
-    triviaQuestions = getQuestions()
-    print(len(triviaQuestions))
+    triviaData = getData()
+    print(len(triviaData))
     
-    # using random to get 10 random numbers between a specific range for 
-    # trivia questions
-    randomGenerator = random.sample(range(1, 817), 10)
-    print(randomGenerator)
+    triviaQuestions = getQuestions(triviaData)
+    print(triviaQuestions)
     
-    for i in randomGenerator:
-        print(triviaQuestions[i][0])
-        print("What's your answer?\n--> ")
-    
-    
+    numCorrectAns, numIncorrectAns = getUserResponse(triviaQuestions)
+    print('You made', numCorrectAns, 'correct answers and', numIncorrectAns, 'incorrect \
+             answers.')
+
+               
 # function to open csv file with trivia questions for program   
-def getQuestions():
+def getData():
     # make sure there isn't an IO error
     try:
         # open the csv file + use an index accumulator for dictionary
@@ -88,4 +86,68 @@ def getQuestions():
     
     return rowDict
 
+# ...
+def getQuestions(triviaDict):
+    index = 0    
+    questionsDict =  {}
+    
+    # using random to get 10 random numbers between a specific range for 
+    # trivia questions
+    randomGenerator = random.sample(range(1, 817), 10)
+    print(randomGenerator)
+    
+    # for an individual random number in the sample range --> iterate and use number as
+    # index for the trivia questions
+    for i in randomGenerator:
+        # iterate each element and assign variable
+        question = triviaDict[i][0]
+        a1 = triviaDict[i][1]
+        a2= triviaDict[i][2]
+        a3 = triviaDict[i][3]
+        a4 = triviaDict[i][4]
+        answer = triviaDict[i][5]
+        
+        if answer == a1:
+            ansNum = 1
+        elif answer == a2:
+            ansNum = 2
+        elif answer == a3:
+            ansNum = 3
+        elif answer == a4:
+            ansNum = 4
+        else:
+            print("Error!  No correct answer")
+        
+        # place questions into new dictionary in the right order
+        questionsDict[index] = [question, a1, a2, a3, a4, answer, ansNum]
+        index += 1
+        
+    return questionsDict
+
+# ...
+def getUserResponse(triviaDict):   
+    correctAns = 0
+    incorrectAns = 0
+    
+    for i in triviaDict:
+        print('\n', triviaDict[i][0], '\n\t1: ', triviaDict[i][1], ' \
+                 \n\t2: ', triviaDict[i][2], '\n\t3: ', triviaDict[i][3], ' \
+                 \n\t4: ', triviaDict[i][4])
+       
+        while True:
+            try:
+                choice = int(input("\nWhat's your answer? \n--> "))
+            except ValueError:
+                print('Sorry, the answer only accepts numbers; please enter a number 1-4')
+            finally:
+                if choice in range(1, 5):
+                    break
+       
+        if choice == triviaDict[i][6]:
+            correctAns += 1
+        elif choice != triviaDict[i][6]:
+            incorrectAns += 1
+        
+    return correctAns, incorrectAns
+       
 main()
