@@ -51,6 +51,18 @@ Be sure to show that the validation works for the possible answers.
 import csv
 import random
 
+class someClass:
+    """ This is the docstring """
+    
+    def __someObject__(something):
+        """ ? """
+        something.__someObject__ = ...
+
+class playerOne:
+    """ ... """
+    def __init__(self, *args, **kwargs):
+        ...
+        
 def main():
     # using a dictionary to obtain questions from a trivia question csv file
     triviaData = getData()
