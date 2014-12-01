@@ -49,39 +49,43 @@ Be sure to show that the validation works for the possible answers.
 
 """
 import csv
+import random
 
-with open('trivia.csv') as csvFile:
-    readCSV = csv.reader(csvFile, delimiter=',')
-    questionIndex = 0
+def main():
+    # using a dictionary to obtain questions from a trivia question csv file
+    triviaQuestions = getQuestions()
+    print(len(triviaQuestions))
     
-    # columns
-    questionsColumn = [] 
-    Q1Column = []
-    Q2Column = []
-    Q3Column = []
-    Q4Column = []
-    answersColumn = []
-
+    # using random to get 10 random numbers between a specific range for 
+    # trivia questions
+    randomGenerator = random.sample(range(1, 817), 10)
+    print(randomGenerator)
     
-    for row in readCSV:
-        question = row[0]
-        choiceOne = row[1]
-        choiceTwo = row[2]
-        choiceThree = row[3]
-        choiceFour = row[4]
-        answer = row[5]
+    for i in randomGenerator:
+        print(triviaQuestions[i][0])
+        print("What's your answer?\n--> ")
+    
+    
+# function to open csv file with trivia questions for program   
+def getQuestions():
+    # make sure there isn't an IO error
+    try:
+        # open the csv file + use an index accumulator for dictionary
+        with open('trivia.csv') as csvFile:
+            readCSV = csv.reader(csvFile, delimiter=',')
+            index = 0
+            
+            # questions, answer choices, and answers dictionary
+            rowDict = {}
         
-        questionsColumn.append(question)
-        Q1Column.append(choiceOne)
-        Q2Column.append(choiceTwo)
-        Q3Column.append(choiceThree)
-        Q4Column.append(choiceFour)
-        answersColumn.append(answer)
-     
-print(questionsColumn)
-print(answersColumn)
-     
-  
+            # reading the trivia questions
+            for row in readCSV:
+                rowDict[index] = row
+                index += 1
 
-        
+    except IOError:
+        print("The file could not be found.")
+    
+    return rowDict
 
+main()
