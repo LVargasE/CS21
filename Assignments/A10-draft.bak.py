@@ -50,18 +50,6 @@ Be sure to show that the validation works for the possible answers.
 """
 import csv
 import random
-
-class Data:
-    def __init__(self):
-        ...
-    
-    def __str__(self):
-        ...
-        
-class Question(Data):
-    def __init__(self):
-        ...
-    def __str__(self)
         
 def main():
     # using a dictionary to obtain questions from a trivia question csv file
@@ -100,12 +88,12 @@ def getData():
 
 # ...
 def getQuestions(triviaDict):
-    index = 0    
+    index = 0
     questionsDict =  {}
     
     # using random to get 10 random numbers between a specific range for 
     # trivia questions
-    randomGenerator = random.sample(range(1, 817), 10)
+    randomGenerator = random.sample(range(1, 817), 5)
     print(randomGenerator)
     
     # for an individual random number in the sample range --> iterate and use number as

@@ -19,9 +19,68 @@ The Program Spec:
 import csv
 import random
 
-class Data:
-    # function to open csv file with trivia questions for program   
-    def getData(self):
+class Question():
+    def __init__(self, question, a1, a2, a3, a4, answer, ansNum):
+        self.question = question
+        self.a1 = a1
+        self.a2 = a2
+        self.a3 = a3
+        self.a4 = a4
+        self.answer = answer
+        self.ansNum = ansNum
+               
+# the Data class opens the CSV file, reads the rows and converts rows to trivia questions
+# in a dictionary with numbers as keys and a list as the value
+class Data():
+    def __init__(self, triviaData):
+        self.triviaData = triviaData
+    
+    def getQuestions(self, triviaData):
+        index = 0
+        questionsDict =  {}
+        
+        # using random to get 10 random numbers between a specific range for 
+        # trivia questions
+        randomGenerator = random.sample(range(1, 817), 5)
+        print(randomGenerator)
+        
+        # for an individual random number in the sample range --> iterate and use number as
+        # index for the trivia questions
+        for i in randomGenerator:
+            # iterate each element and assign variable
+            question = triviaData[i][0]
+            a1 = triviaData[i][1]
+            a2= triviaData[i][2]
+            a3 = triviaData[i][3]
+            a4 = triviaData[i][4]
+            answer = triviaData[i][5]
+            
+            if answer == a1:
+                ansNum = 1
+            elif answer == a2:
+                ansNum = 2
+            elif answer == a3:
+                ansNum = 3
+            elif answer == a4:
+                ansNum = 4
+            else:
+                print("Error!  No correct answer")
+            
+            
+            # place questions into new dictionary in the right order
+            questionsDict[index] = [question, a1, a2, a3, a4, answer, ansNum]
+            index += 1
+  
+        return questionsDict
+
+def main():
+    data = Data(getData())
+    # print(data.triviaData)
+    unParsedQuestions = data.getQuestions(data.triviaData)
+    questions = parseQuestions(unParsedQuestions)
+    print(questions)
+
+def getData():
         # make sure there isn't an IO error
         try:
             # open the csv file + use an index accumulator for dictionary
@@ -41,53 +100,21 @@ class Data:
             print("The file could not be found.")
         
         return rowDict
-        
-class Question(Data):
-    """ Question class for preparing data to be used by Game class """
-    def __init__(self):
-        """ Create list of questions """
-        self.question = quesiton
-        self.aOne = aOne
-        self.aTwo = aTwo
-        self.aThree = aThree
-        self.aFour = aFour
-        self.answer = answer
-        self.numAns = numAns
-        
-    def getQuestions(self):
-        # using random to get 10 random numbers between a specific range for 
-        # trivia questions
-        randomGenerator = random.sample(range(1, 817), 5)
-        print(randomGenerator)
-        
-        # for an individual random number in the sample range --> iterate and use number as
-        # index for the trivia questions
-        for i in randomGenerator:
-            # iterate each element and assign variable
-            question = [i][0]
-            a1 = ()[i][1]
-            a2= self.getData()[i][2]
-            a3 = self.getData()[i][3]
-            a4 = self.getData()[i][4]
-            answer = self.getData()[i][5]
-            
-            if answer == a1:
-                ansNum = 1
-            elif answer == a2:
-                ansNum = 2
-            elif answer == a3:
-                ansNum = 3
-            elif answer == a4:
-                ansNum = 4
-            else:
-                print("Error!  No correct answer")
 
-               
-def main():
-    triviaData = Data()
-    print(triviaData.getData())
+def parseQuestions(aDict):
+    for i in aDict[:
+        questionRow = aDict[i]
+        for k in questionRow:
+            question = questionRow[0]
+            a1 = questionRow[1] 
+            a2 =questionRow[2]
+            a3 = questionRow[3]
+            a4 = questionRow[4]
+            answer = questionRow[5]
+            ansNum = questionRow[6] 
     
-    questions = Question()
-    print(questions.getQuestions())
-    
+            aTriviaQuestion = Question(question, a1, a2, a3, a4, answer, ansNum)
+
+    return aTriviaQuestion
+       
 main()
