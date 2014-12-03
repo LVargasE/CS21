@@ -66,7 +66,7 @@ class Question(Data):
         
         # using random to get 10 random numbers between a specific range for 
         # trivia questions
-        randomGenerator = random.sample(range(1, 817), 10)
+        randomGenerator = random.sample(range(1, 817), 5)
         print(randomGenerator)
         
         # for an individual random number in the sample range --> iterate and use number as
