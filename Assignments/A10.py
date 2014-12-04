@@ -5,19 +5,6 @@
 """
 import csv
 import random
-
-# the Question class allows for easy parsing of question attributes from
-# nested lists for easier handling and processing 
-class Question():
-    # the init method fills in the blanks when initializing instances
-    def __init__(self, question, a1, a2, a3, a4, answer, ansNum):
-        self.question = question
-        self.a1 = a1
-        self.a2 = a2
-        self.a3 = a3
-        self.a4 = a4
-        self.answer = answer
-        self.ansNum = ansNum
                
 # the Data class enables the main function to pass the data from a CSV file 
 # through methods that place the data in a dictionary with numbers as keys 
@@ -63,7 +50,24 @@ class Data():
             index += 1
 
         return questionsDict
-    
+        
+# the Game class class allows for easy parsing of question attributes from
+# nested lists for easier handling and processing         
+class Game(Data):
+    def __init__(self, triviaData, question, a1, a2, a3, a4, answer, ansNum, \
+                 ansCorrect, ansIncorrect, roundWins):
+        Data.__init__(self, triviaData)
+        self.question = question
+        self.a1 = a1
+        self.a2 = a2
+        self.a3 = a3
+        self.a4 = a4
+        self.answer = answer
+        self.ansNum = ansNum
+        self.ansCorrect = ansCorrect
+        self.ansIncorrect = ansIncorrect
+        self.roundWins = roundWins                                                       
+
     # method for parsing a single question and create an instance from the 
     # Question class to return to main
     def parseQuestions(self, aDict, qNum):
@@ -77,21 +81,16 @@ class Data():
             ansNum = aDict[qNum][6] 
             
             # instantiates the object
-            aTriviaQuestion = Question(question, a1, a2, a3, a4, answer, ansNum)
+            aTriviaQuestion = Game(question, a1, a2, a3, a4, answer, ansNum)
 
         return aTriviaQuestion
-        
-class Game(Question, Data):
-    def __init__(self, triviaData, question, a1, a2, a3, a4, answer, ansNum, \
-                 ansCorrect, ansIncorrect, roundWins):
-        Question.__init__(self, question, a1, a2, a3, a4, answer, ansNum)
-        Data.__init__(self, triviaData)
-        self.ansCorrect = ansCorrect
-        self.ansIncorrect = ansIncorrect
-        self.roundWins = roundWins
     
-    def setUpQuestions(self, question, a1, a2, a3, a4, answer, ansNum, \
+    def setUpQuestions(self, triviaData, question, a1, a2, a3, a4, answer, ansNum, \
                  ansCorrect, ansIncorrect, roundWins):
+
+        # call the method from Data class to get all the questions
+        triviaData = data.getQuestions(data.triviaData)
+        
         # use the random module's sample method to select five random numbers
         randomGen = random.sample(range(1, 817), 5)
         
@@ -110,10 +109,11 @@ class Game(Question, Data):
                                                     qOne.a2, qOne.a3, qOne.a4,\
                                                     qOne.answer, qOne.ansNum,\
                                                     0, 0, 0)
-                                                    
+    
     def askQuestions(self, question, a1, a2, a3, a4, answer, ansNum, \
-                 ansCorrect, ansIncorrect, roundWins):
-        print('THE SCORE SO FAR//\n\n\t Rounds Won: ', roundWins, '\n\n')
+                     ansCorrect, ansIncorrect, roundWins):
+
+        print('THE SCORE SO FAR//\n\n\t Rounds Won: ', roundWins, '\n')
         
         print('\nFIRST QUESTION//\n', question, '\n\t1: ', a1, ' \
                  \n\t2: ', a2, '\n\t3: ', a3, ' \
@@ -135,14 +135,11 @@ class Game(Question, Data):
                 ansIncorrect += 1
             
         return ansCorrect, ansIncorrect
-    
+
 # main function        
 def main():
     # instantiate the Data class and assign the variable 'data'
     data = Data(getData())
-    
-    # call the method from Data class to get all the questions
-    triviaData = data.getQuestions(data.triviaData)
     
     print('NOW SWITCH PLAYERS')
     
