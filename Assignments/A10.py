@@ -21,7 +21,7 @@ class Question:
         self.ansNum = ansNum
 
     # the method performs better as a class method since it instantiates the
-    # class
+    # Question class with sample questions for the game
     @classmethod
     def getQuestion(cls, triviaDict):
         # using random to get 10 random numbers between a specific range for
@@ -44,7 +44,7 @@ class Question:
         return aQuestion
 
     # this is a part of using composition rather than inheritance to get the
-    # attributes
+    # attributes from the getData method
     def __getattr__(self, attr):
         return getattr(self.getData, attr)
 
@@ -53,14 +53,14 @@ class Question:
     def setupAsk(cls, q):
         print('\n', q.question, '\n\t1: ', q.a1, ' \
                  \n\t2: ', q.a2, '\n\t3: ', q.a3, ' \
-                 \n\t4: ', q.a4)
+                 \n\t4: ', q.a4, '\n')
 
         # make sure the user's input works
         while True:
             try:
                 choice = int(input("\nWhat's your answer? \n--> "))
             except ValueError:
-                print('Sorry, the answer only accepts numbers; please \
+                print('\nSorry, the answer only accepts numbers; please \
                        enter a number 1-4')
                 choice = int(input("\nWhat's your answer? \n--> "))
             finally:
@@ -69,10 +69,10 @@ class Question:
 
         # if the question is correct, return true; if not, return false
         if choice == q.ansNum:
-            print('Correct! \n', q.answer)
+            print('\nCorrect! \n', q.answer)
             return True
         elif choice != q.ansNum:
-            print('Incorrect!  \n', q.answer)
+            print('\nIncorrect!  \n', q.answer)
             return False
 
 # the Data class handles openning the file and preparing it to be used by
@@ -104,7 +104,7 @@ class Data:
                     a4 = rowDict[index][4]
                     answer = rowDict[index][5]
 
-                    # figure out which answer is correct and assign a variable to it
+                    # figure out which answer is correct and assign a variable
                     if answer == a1:
                         ansNum = 1
                     elif answer == a2:
@@ -126,17 +126,16 @@ class Data:
         except IOError:
             print("The file could not be found.")
 
-# the Game class is to
+# the Game class is where the bulk of the game's structure is found
 class Game:
-    def __init__(self, playerID, gamePoints, totalPoints):
+    def __init__(self, playerID, gamePoints):
         self.playerID = playerID
         self.gamePoints = gamePoints
-        self.totalPoints = totalPoints
 
     # method to create instances for questions and find out if a quesiton
     # was answered correctly or not
-    def round(self, qClass, data, totalPoints):
-        gamePoints = 0
+    def round(self, qClass, data):
+        gamePoints = 0 # reset to 0 for new round
 
         # instances
         q1 = qClass.getQuestion(data)
@@ -148,32 +147,24 @@ class Game:
         # return value is true or false; this computes points
         if qClass.setupAsk(q1) == True:
             gamePoints += 1
-            totalPoints += 1
         if qClass.setupAsk(q2) == True:
             gamePoints += 1
-            totalPoints += 1
         if qClass.setupAsk(q3) == True:
             gamePoints += 1
-            totalPoints += 1
         if qClass.setupAsk(q4) == True:
             gamePoints += 1
-            totalPoints += 1
         if qClass.setupAsk(q5) == True:
             gamePoints += 1
-            totalPoints += 1
 
-        # let the user know what happenned
-        print('you won {} points this game and have {} total \
-               points from previous games.'.format(gamePoints, totalPoints))
+        # let the user know what happenned this round
+        print('you won {} points this game!'.format(gamePoints))
 
-        return totalPoints
+        return gamePoints
 
 def main():
     # local variables
     flag = False
     gameNum = 1
-    totalPointsP1 = 0
-    totalPointsP2 = 0
 
     # instance of Data class
     data = Data('csv')
@@ -184,8 +175,8 @@ def main():
                          'answer', 'ansNum')
 
     # create both players
-    playerOne = Game(str(input('PLAYER ONE//\nEnter your name: ')), 0, totalPointsP1)
-    playerTwo = Game(str(input('PLAYER TWO//\nEnter your name: ')), 0, totalPointsP2)
+    playerOne = Game(str(input('PLAYER ONE//\nEnter your name: ')), 0,)
+    playerTwo = Game(str(input('PLAYER TWO//\nEnter your name: ')), 0,)
 
     # while loop to keep the game going if the user chooses
     while flag != True:
@@ -193,7 +184,7 @@ def main():
         print('\nROUND ', gameNum, '//\nPlayer One')
 
         # first player instance; asks five questions
-        p1round = playerOne.round(questions, questionsData, totalPointsP1)
+        p1round = playerOne.round(questions, questionsData)
 
         print("""
         +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -205,17 +196,26 @@ def main():
         print('\nROUND ', gameNum, '//\nPlayer Two')
 
         # second player instance; asks the five quesitons
-        p2round = playerTwo.round(questions, questionsData, totalPointsP2)
-
+        p2round = playerTwo.round(questions, questionsData)
+        
+        # let the user know which round they are on with accumulator
         gameNum += 1
 
+        # figure out who won and use user's inputed name and their points
+        # in print statement
         if p1round < p2round:
-            print('{} is the winner with {} total \
-                  points!'.format(playerTwo.playerID, p2round))
+            print('Thank you for playing!  {} is the winner with {} total \
+                  game points!'.format(playerTwo.playerID, p2round))
         elif p2round < p1round:
-            print('{} is the winner with {} total \
-                  points!'.format(playerOne.playerID, p1round))
-
+            print('Thank you for playing!  {} is the winner with {} total \
+                  game points!'.format(playerOne.playerID, p1round))
+        elif p2round == p1round:
+            print('There was a tie!  Both {} and {} both earned {} total \
+                   game points; but you are both still \
+                   winners!'.format(playerOne.playerID, playerTwo.playerID, \
+                   p1round))
+        
+        # find out if user wants to continue + validate user response
         while True:
             try:
                 choice = str(input("\nKeep playing? \n--> ")).upper()
@@ -230,14 +230,8 @@ def main():
                 else:
                     print("please enter either a 'Y' for 'Yes', or 'N' \
                            for 'No'.")
-    # figure out who won
-    if p1round < p2round:
-        print('Thank you for playing!  {} is the winner with {} total \
-              game wins!'.format(playerTwo.playerID, p2round))
-    elif p2round < p1round:
-        print('Thank you for playing!  {} is the winner with {} total \
-              game wins!'.format(playerOne.playerID, p1round))
-    elif p2round == p1round:
-        print('There was a tie!  But you are both still winners!')
+    
+    # say bye to players and quit the program
+    print('\nThank you for playing!  See you next time!\n')
 
 main()
