@@ -1,4 +1,4 @@
 CS21A
 =====
 
-Work related to Programming in Python (CS21A)
+Work related to my Programming in Python course.
